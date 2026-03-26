@@ -61,6 +61,47 @@
 		AA0000000000001E /* TmuxChromeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001E /* TmuxChromeRenderer.swift */; };
 		BB0000000000001E /* TmuxChromeRenderer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000001E /* TmuxChromeRenderer.swift */; };
 		AA0000000000001F /* TmuxChromeRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001F /* TmuxChromeRendererTests.swift */; };
+		AA00000000000020 /* add-auth.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000020 /* add-auth.jsonl */; };
+		AA00000000000021 /* build-rest-api.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000021 /* build-rest-api.jsonl */; };
+		AA00000000000022 /* code-review.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000022 /* code-review.jsonl */; };
+		AA00000000000023 /* debug-memory-leak.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000023 /* debug-memory-leak.jsonl */; };
+		AA00000000000024 /* docker-setup.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000024 /* docker-setup.jsonl */; };
+		AA00000000000025 /* fix-css-layout.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000025 /* fix-css-layout.jsonl */; };
+		AA00000000000026 /* fix-react-bug.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000026 /* fix-react-bug.jsonl */; };
+		AA00000000000027 /* git-workflow.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000027 /* git-workflow.jsonl */; };
+		AA00000000000028 /* graphql-api.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000028 /* graphql-api.jsonl */; };
+		AA00000000000029 /* kubernetes-deploy.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000029 /* kubernetes-deploy.jsonl */; };
+		AA0000000000002A /* migrate-typescript.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002A /* migrate-typescript.jsonl */; };
+		AA0000000000002B /* optimize-sql.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002B /* optimize-sql.jsonl */; };
+		AA0000000000002C /* performance-audit.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002C /* performance-audit.jsonl */; };
+		AA0000000000002D /* refactor-database.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002D /* refactor-database.jsonl */; };
+		AA0000000000002E /* rust-cli-tool.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002E /* rust-cli-tool.jsonl */; };
+		AA0000000000002F /* search-feature.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF0000000000002F /* search-feature.jsonl */; };
+		AA00000000000030 /* setup-cicd.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000030 /* setup-cicd.jsonl */; };
+		AA00000000000031 /* websocket-server.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000031 /* websocket-server.jsonl */; };
+		AA00000000000032 /* write-docs.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000032 /* write-docs.jsonl */; };
+		AA00000000000033 /* write-python-tests.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000033 /* write-python-tests.jsonl */; };
+		CC00000000000002 /* add-auth.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000020 /* add-auth.jsonl */; };
+		CC00000000000003 /* build-rest-api.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000021 /* build-rest-api.jsonl */; };
+		CC00000000000004 /* code-review.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000022 /* code-review.jsonl */; };
+		CC00000000000005 /* debug-memory-leak.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000023 /* debug-memory-leak.jsonl */; };
+		CC00000000000006 /* docker-setup.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000024 /* docker-setup.jsonl */; };
+		CC00000000000007 /* fix-css-layout.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000025 /* fix-css-layout.jsonl */; };
+		CC00000000000008 /* fix-react-bug.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000026 /* fix-react-bug.jsonl */; };
+		CC00000000000009 /* git-workflow.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000027 /* git-workflow.jsonl */; };
+		CC0000000000000A /* graphql-api.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000028 /* graphql-api.jsonl */; };
+		CC0000000000000B /* kubernetes-deploy.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000029 /* kubernetes-deploy.jsonl */; };
+		CC0000000000000C /* migrate-typescript.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002A /* migrate-typescript.jsonl */; };
+		CC0000000000000D /* optimize-sql.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002B /* optimize-sql.jsonl */; };
+		CC0000000000000E /* performance-audit.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002C /* performance-audit.jsonl */; };
+		CC0000000000000F /* refactor-database.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002D /* refactor-database.jsonl */; };
+		CC00000000000010 /* rust-cli-tool.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002E /* rust-cli-tool.jsonl */; };
+		CC00000000000011 /* search-feature.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000002F /* search-feature.jsonl */; };
+		CC00000000000012 /* setup-cicd.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000030 /* setup-cicd.jsonl */; };
+		CC00000000000013 /* websocket-server.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000031 /* websocket-server.jsonl */; };
+		CC00000000000014 /* write-docs.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000032 /* write-docs.jsonl */; };
+		CC00000000000015 /* write-python-tests.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000033 /* write-python-tests.jsonl */; };
+		AA00000000000034 /* BundledSessionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000034 /* BundledSessionsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +143,27 @@
 		AF0000000000001D /* TerminalRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRendererTests.swift; sourceTree = "<group>"; };
 		AF0000000000001E /* TmuxChromeRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxChromeRenderer.swift; sourceTree = "<group>"; };
 		AF0000000000001F /* TmuxChromeRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxChromeRendererTests.swift; sourceTree = "<group>"; };
+		AF00000000000020 /* add-auth.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "add-auth.jsonl"; sourceTree = "<group>"; };
+		AF00000000000021 /* build-rest-api.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "build-rest-api.jsonl"; sourceTree = "<group>"; };
+		AF00000000000022 /* code-review.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "code-review.jsonl"; sourceTree = "<group>"; };
+		AF00000000000023 /* debug-memory-leak.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "debug-memory-leak.jsonl"; sourceTree = "<group>"; };
+		AF00000000000024 /* docker-setup.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "docker-setup.jsonl"; sourceTree = "<group>"; };
+		AF00000000000025 /* fix-css-layout.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fix-css-layout.jsonl"; sourceTree = "<group>"; };
+		AF00000000000026 /* fix-react-bug.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fix-react-bug.jsonl"; sourceTree = "<group>"; };
+		AF00000000000027 /* git-workflow.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "git-workflow.jsonl"; sourceTree = "<group>"; };
+		AF00000000000028 /* graphql-api.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "graphql-api.jsonl"; sourceTree = "<group>"; };
+		AF00000000000029 /* kubernetes-deploy.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "kubernetes-deploy.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002A /* migrate-typescript.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "migrate-typescript.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002B /* optimize-sql.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "optimize-sql.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002C /* performance-audit.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "performance-audit.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002D /* refactor-database.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "refactor-database.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002E /* rust-cli-tool.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "rust-cli-tool.jsonl"; sourceTree = "<group>"; };
+		AF0000000000002F /* search-feature.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "search-feature.jsonl"; sourceTree = "<group>"; };
+		AF00000000000030 /* setup-cicd.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "setup-cicd.jsonl"; sourceTree = "<group>"; };
+		AF00000000000031 /* websocket-server.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "websocket-server.jsonl"; sourceTree = "<group>"; };
+		AF00000000000032 /* write-docs.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "write-docs.jsonl"; sourceTree = "<group>"; };
+		AF00000000000033 /* write-python-tests.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "write-python-tests.jsonl"; sourceTree = "<group>"; };
+		AF00000000000034 /* BundledSessionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledSessionsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +194,7 @@
 				AF0200000000002 /* Models */,
 				AF0200000000005 /* Engine */,
 				AF0200000000008 /* Rendering */,
+				AF0200000000011 /* Sessions */,
 				EB36834959854EB7B931C1BA /* Info.plist */,
 			);
 			path = ClaudeCodeScreenSaver;
@@ -207,6 +270,7 @@
 				AF0200000000006 /* Engine */,
 				AF0200000000009 /* Rendering (tests) */,
 				AF0200000000007 /* Fixtures */,
+				AF0200000000010 /* Integration */,
 			);
 			path = ClaudeCodeScreenSaverTests;
 			sourceTree = "<group>";
@@ -240,6 +304,41 @@
 				AF00000000000011 /* sample-session.jsonl */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		AF0200000000010 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				AF00000000000034 /* BundledSessionsTests.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		AF0200000000011 /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				AF00000000000020 /* add-auth.jsonl */,
+				AF00000000000021 /* build-rest-api.jsonl */,
+				AF00000000000022 /* code-review.jsonl */,
+				AF00000000000023 /* debug-memory-leak.jsonl */,
+				AF00000000000024 /* docker-setup.jsonl */,
+				AF00000000000025 /* fix-css-layout.jsonl */,
+				AF00000000000026 /* fix-react-bug.jsonl */,
+				AF00000000000027 /* git-workflow.jsonl */,
+				AF00000000000028 /* graphql-api.jsonl */,
+				AF00000000000029 /* kubernetes-deploy.jsonl */,
+				AF0000000000002A /* migrate-typescript.jsonl */,
+				AF0000000000002B /* optimize-sql.jsonl */,
+				AF0000000000002C /* performance-audit.jsonl */,
+				AF0000000000002D /* refactor-database.jsonl */,
+				AF0000000000002E /* rust-cli-tool.jsonl */,
+				AF0000000000002F /* search-feature.jsonl */,
+				AF00000000000030 /* setup-cicd.jsonl */,
+				AF00000000000031 /* websocket-server.jsonl */,
+				AF00000000000032 /* write-docs.jsonl */,
+				AF00000000000033 /* write-python-tests.jsonl */,
+			);
+			path = Resources/Sessions;
 			sourceTree = "<group>";
 		};
 		AF0200000000003 /* Mocks */ = {
@@ -368,6 +467,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA00000000000020 /* add-auth.jsonl in Resources */,
+				AA00000000000021 /* build-rest-api.jsonl in Resources */,
+				AA00000000000022 /* code-review.jsonl in Resources */,
+				AA00000000000023 /* debug-memory-leak.jsonl in Resources */,
+				AA00000000000024 /* docker-setup.jsonl in Resources */,
+				AA00000000000025 /* fix-css-layout.jsonl in Resources */,
+				AA00000000000026 /* fix-react-bug.jsonl in Resources */,
+				AA00000000000027 /* git-workflow.jsonl in Resources */,
+				AA00000000000028 /* graphql-api.jsonl in Resources */,
+				AA00000000000029 /* kubernetes-deploy.jsonl in Resources */,
+				AA0000000000002A /* migrate-typescript.jsonl in Resources */,
+				AA0000000000002B /* optimize-sql.jsonl in Resources */,
+				AA0000000000002C /* performance-audit.jsonl in Resources */,
+				AA0000000000002D /* refactor-database.jsonl in Resources */,
+				AA0000000000002E /* rust-cli-tool.jsonl in Resources */,
+				AA0000000000002F /* search-feature.jsonl in Resources */,
+				AA00000000000030 /* setup-cicd.jsonl in Resources */,
+				AA00000000000031 /* websocket-server.jsonl in Resources */,
+				AA00000000000032 /* write-docs.jsonl in Resources */,
+				AA00000000000033 /* write-python-tests.jsonl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +495,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA00000000000011 /* sample-session.jsonl in Resources */,
+				CC00000000000002 /* add-auth.jsonl in Resources (test) */,
+				CC00000000000003 /* build-rest-api.jsonl in Resources (test) */,
+				CC00000000000004 /* code-review.jsonl in Resources (test) */,
+				CC00000000000005 /* debug-memory-leak.jsonl in Resources (test) */,
+				CC00000000000006 /* docker-setup.jsonl in Resources (test) */,
+				CC00000000000007 /* fix-css-layout.jsonl in Resources (test) */,
+				CC00000000000008 /* fix-react-bug.jsonl in Resources (test) */,
+				CC00000000000009 /* git-workflow.jsonl in Resources (test) */,
+				CC0000000000000A /* graphql-api.jsonl in Resources (test) */,
+				CC0000000000000B /* kubernetes-deploy.jsonl in Resources (test) */,
+				CC0000000000000C /* migrate-typescript.jsonl in Resources (test) */,
+				CC0000000000000D /* optimize-sql.jsonl in Resources (test) */,
+				CC0000000000000E /* performance-audit.jsonl in Resources (test) */,
+				CC0000000000000F /* refactor-database.jsonl in Resources (test) */,
+				CC00000000000010 /* rust-cli-tool.jsonl in Resources (test) */,
+				CC00000000000011 /* search-feature.jsonl in Resources (test) */,
+				CC00000000000012 /* setup-cicd.jsonl in Resources (test) */,
+				CC00000000000013 /* websocket-server.jsonl in Resources (test) */,
+				CC00000000000014 /* write-docs.jsonl in Resources (test) */,
+				CC00000000000015 /* write-python-tests.jsonl in Resources (test) */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +583,7 @@
 				AA0000000000001D /* TerminalRendererTests.swift in Sources */,
 				BB0000000000001E /* TmuxChromeRenderer.swift in Sources (test) */,
 				AA0000000000001F /* TmuxChromeRendererTests.swift in Sources */,
+				AA00000000000034 /* BundledSessionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
