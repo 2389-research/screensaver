@@ -17,14 +17,12 @@ class TerminalRenderer {
     private var cursorVisible = true
     private let cursorBlinkHalfPeriod: TimeInterval = 0.530
 
-    init(frame: CGRect, theme: ThemeColors) {
+    init(frame: CGRect, theme: ThemeColors, scale: CGFloat = 2.0) {
         self.theme = theme
         self.fontMetrics = FontMetrics.compute(for: frame)
         self.containerLayer = CALayer()
         containerLayer.frame = frame
         containerLayer.backgroundColor = NSColor(hex: theme.background).cgColor
-
-        let scale = NSScreen.main?.backingScaleFactor ?? 2.0
 
         // Create per-line text layers
         for row in 0..<fontMetrics.rows {

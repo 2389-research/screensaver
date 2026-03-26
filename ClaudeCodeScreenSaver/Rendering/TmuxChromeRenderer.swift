@@ -50,13 +50,12 @@ class TmuxChromeRenderer {
         activeWindow = index
     }
 
-    func createStatusBarLayer(width: CGFloat, font: CTFont, theme: ThemeColors) -> CALayer {
+    func createStatusBarLayer(width: CGFloat, font: CTFont, theme: ThemeColors, scale: CGFloat = 2.0) -> CALayer {
         let height = statusBarHeight(for: font)
         let barLayer = CALayer()
         barLayer.frame = CGRect(x: 0, y: 0, width: width, height: height)
         barLayer.backgroundColor = NSColor(hex: theme.statusBarBackground).cgColor
 
-        let scale = NSScreen.main?.backingScaleFactor ?? 2.0
         let nsFont = font as NSFont
 
         // Left text

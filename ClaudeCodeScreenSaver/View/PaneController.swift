@@ -16,10 +16,10 @@ class PaneController {
     private var player: SessionPlayer
     private let stringBuilder: AttributedStringBuilder
 
-    init(layout: PaneLayout, theme: ThemeColors, events: [SessionEvent], sessionFileName: String) {
+    init(layout: PaneLayout, theme: ThemeColors, events: [SessionEvent], sessionFileName: String, scale: CGFloat = 2.0) {
         self.layout = layout
         self.sessionFileName = sessionFileName
-        self.renderer = TerminalRenderer(frame: layout.frame, theme: theme)
+        self.renderer = TerminalRenderer(frame: layout.frame, theme: theme, scale: scale)
         self.player = SessionPlayer(events: events)
         self.player.visibleRows = renderer.fontMetrics.rows
         self.player.currentSessionFileName = sessionFileName

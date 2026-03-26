@@ -56,6 +56,9 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     // RNG seed derived from screen for multi-display
     private var displaySeed: UInt64 = 42
 
+    // Backing scale factor for the display this view is on
+    private var displayScale: CGFloat = 2.0
+
     // Retained preferences window to prevent deallocation before display
     private var preferencesWindow: NSWindow?
 
@@ -95,6 +98,9 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         } else {
             displaySeed = UInt64(bitPattern: Int64(frame.origin.x.hashValue &+ frame.origin.y.hashValue))
         }
+
+        // Capture the backing scale for this display — used for all layer contentsScale
+        displayScale = window?.screen?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2.0
 
         let root = self.layer ?? {
             let l = CALayer()
@@ -143,7 +149,8 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
                 layout: layout,
                 theme: theme,
                 events: session.events,
-                sessionFileName: session.fileName
+                sessionFileName: session.fileName,
+                scale: displayScale
             )
             paneControllers.append(controller)
 
@@ -172,7 +179,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
         // Create status bar
         let statusLayer = chromeRenderer?.createStatusBarLayer(
-            width: bounds.width, font: statusFont, theme: theme
+            width: bounds.width, font: statusFont, theme: theme, scale: displayScale
         )
         if let statusLayer = statusLayer {
             CATransaction.begin()
@@ -349,7 +356,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
             lineHeight: lineHeight
         )
 
-        let scale = NSScreen.main?.backingScaleFactor ?? 2.0
+        let scale = displayScale
         let font = firstPaneMetrics.font as NSFont
 
         CATransaction.begin()
@@ -455,7 +462,8 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
                     layout: layout,
                     theme: theme,
                     events: [],
-                    sessionFileName: old.sessionFileName
+                    sessionFileName: old.sessionFileName,
+                    scale: displayScale
                 )
                 // Assign a fresh session since we can't transfer state
                 let session = randomSession()
@@ -466,7 +474,8 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
                     layout: layout,
                     theme: theme,
                     events: session.events,
-                    sessionFileName: session.fileName
+                    sessionFileName: session.fileName,
+                    scale: displayScale
                 )
             }
             root.addSublayer(controller.renderer.containerLayer)
