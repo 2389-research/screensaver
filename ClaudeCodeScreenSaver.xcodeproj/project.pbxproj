@@ -102,6 +102,10 @@
 		CC00000000000014 /* write-docs.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000032 /* write-docs.jsonl */; };
 		CC00000000000015 /* write-python-tests.jsonl in Resources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000033 /* write-python-tests.jsonl */; };
 		AA00000000000034 /* BundledSessionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000034 /* BundledSessionsTests.swift */; };
+		AA00000000000035 /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000035 /* PreferencesStorage.swift */; };
+		BB00000000000035 /* PreferencesStorage.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000035 /* PreferencesStorage.swift */; };
+		AA00000000000036 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
+		AA00000000000037 /* PreferencesStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000037 /* PreferencesStorageTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,6 +168,9 @@
 		AF00000000000032 /* write-docs.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "write-docs.jsonl"; sourceTree = "<group>"; };
 		AF00000000000033 /* write-python-tests.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "write-python-tests.jsonl"; sourceTree = "<group>"; };
 		AF00000000000034 /* BundledSessionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledSessionsTests.swift; sourceTree = "<group>"; };
+		AF00000000000035 /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
+		AF00000000000036 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		AF00000000000037 /* PreferencesStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */,
+				AF00000000000036 /* PreferencesController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 			children = (
 				03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */,
 				AF01000000000004 /* SystemAnimationClock.swift */,
+				AF00000000000035 /* PreferencesStorage.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -355,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				AF0100000000000C /* PreferencesTests.swift */,
+				AF00000000000037 /* PreferencesStorageTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -544,6 +554,8 @@
 				AA0000000000001A /* BorderRenderer.swift in Sources */,
 				AA0000000000001C /* TerminalRenderer.swift in Sources */,
 				AA0000000000001E /* TmuxChromeRenderer.swift in Sources */,
+				AA00000000000035 /* PreferencesStorage.swift in Sources */,
+				AA00000000000036 /* PreferencesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +596,8 @@
 				BB0000000000001E /* TmuxChromeRenderer.swift in Sources (test) */,
 				AA0000000000001F /* TmuxChromeRendererTests.swift in Sources */,
 				AA00000000000034 /* BundledSessionsTests.swift in Sources */,
+				BB00000000000035 /* PreferencesStorage.swift in Sources (test) */,
+				AA00000000000037 /* PreferencesStorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
