@@ -46,6 +46,10 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     private var statusBarRightLayer: CATextLayer?
     private var borderLayers: [CATextLayer] = []
 
+    // Cached status bar rendering objects — set once in startAnimation, reused every frame
+    private var statusBarFont: NSFont?
+    private var statusBarTextColor: NSColor?
+
     // Session data
     private var loadedSessions: [(events: [SessionEvent], fileName: String)] = []
 
@@ -104,6 +108,8 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
         // Compute status bar metrics to know how much space panes get
         let statusFont = CTFontCreateWithName("Menlo" as CFString, 11.0, nil)
+        statusBarFont = statusFont as NSFont
+        statusBarTextColor = NSColor(hex: theme.statusBarText)
         let statusBarH = CTFontGetAscent(statusFont) + CTFontGetDescent(statusFont) + CTFontGetLeading(statusFont) + Self.statusBarHeightPadding
 
         let paneBounds = CGRect(
@@ -267,6 +273,8 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         chromeRenderer = nil
         statusBarLayer = nil
         statusBarRightLayer = nil
+        statusBarFont = nil
+        statusBarTextColor = nil
         borderLayers = []
         staggerDelays = []
         paneActivated = []
@@ -476,14 +484,16 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     // MARK: - Status Bar
 
     private func updateStatusBarTime() {
-        guard let rightLayer = statusBarRightLayer, let chrome = chromeRenderer else { return }
-        let font = CTFontCreateWithName("Menlo" as CFString, 11.0, nil) as NSFont
+        guard let rightLayer = statusBarRightLayer,
+              let chrome = chromeRenderer,
+              let font = statusBarFont,
+              let color = statusBarTextColor else { return }
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         rightLayer.string = NSAttributedString(
             string: chrome.statusBarRightText(),
-            attributes: [.font: font, .foregroundColor: NSColor(hex: theme.statusBarText)]
+            attributes: [.font: font, .foregroundColor: color]
         )
         CATransaction.commit()
     }

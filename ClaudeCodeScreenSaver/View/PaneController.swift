@@ -52,8 +52,8 @@ class PaneController {
             // Tool call header line (box-drawing top)
             return NSAttributedString(
                 string: text,
-                attributes: [.font: stringBuilder.font as NSFont,
-                             .foregroundColor: NSColor(hex: stringBuilder.theme.toolName)]
+                attributes: [.font: stringBuilder.nsFont,
+                             .foregroundColor: stringBuilder.colorToolName]
             )
         } else if text.hasPrefix("\u{2502} ") {
             return stringBuilder.toolResultLine(text: String(text.dropFirst(2)))
@@ -61,8 +61,8 @@ class PaneController {
             // Tool block bottom
             return NSAttributedString(
                 string: text,
-                attributes: [.font: stringBuilder.font as NSFont,
-                             .foregroundColor: NSColor(hex: stringBuilder.theme.toolBorder)]
+                attributes: [.font: stringBuilder.nsFont,
+                             .foregroundColor: stringBuilder.colorToolBorder]
             )
         } else {
             return stringBuilder.responseLine(text: text)

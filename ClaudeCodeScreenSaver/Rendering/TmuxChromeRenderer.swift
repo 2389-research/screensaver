@@ -30,11 +30,15 @@ class TmuxChromeRenderer {
         return parts
     }
 
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "HH:mm dd-MMM-yyyy"
+        return f
+    }()
+
     func statusBarRightText() -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "HH:mm dd-MMM-yyyy"
-        return formatter.string(from: Date())
+        Self.dateFormatter.string(from: Date())
     }
 
     func statusBarHeight(for font: CTFont) -> CGFloat {
