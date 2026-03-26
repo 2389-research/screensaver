@@ -56,6 +56,9 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     // RNG seed derived from screen for multi-display
     private var displaySeed: UInt64 = 42
 
+    // Retained preferences window to prevent deallocation before display
+    private var preferencesWindow: NSWindow?
+
     // MARK: - Initialization
 
     public override init?(frame: NSRect, isPreview: Bool) {
@@ -285,10 +288,13 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     public override var hasConfigureSheet: Bool { true }
 
     public override var configureSheet: NSWindow? {
-        let controller = PreferencesController(bundleIdentifier: Self.bundleID)
-        let window = NSWindow(contentViewController: controller)
-        window.title = "Claude Code Screensaver"
-        return window
+        if preferencesWindow == nil {
+            let controller = PreferencesController(bundleIdentifier: Self.bundleID)
+            let window = NSWindow(contentViewController: controller)
+            window.title = "Claude Code Screensaver"
+            preferencesWindow = window
+        }
+        return preferencesWindow
     }
 
     // MARK: - Session Loading
