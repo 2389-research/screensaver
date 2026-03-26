@@ -77,13 +77,6 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         preferences = PreferencesStorage.load(bundleIdentifier: Self.bundleID)
         theme = preferences.colorScheme == .dark ? .dark : .light
 
-        // Derive seed from screen identifier for multi-display determinism
-        if let screenNumber = window?.screen?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32 {
-            displaySeed = UInt64(screenNumber)
-        } else {
-            displaySeed = UInt64(bitPattern: Int64(frame.origin.x.hashValue &+ frame.origin.y.hashValue))
-        }
-
         let onBattery = Self.isOnBattery()
         let fps: TimeInterval = (isPreview || onBattery) ? (1.0 / 15.0) : (1.0 / 30.0)
         animationTimeInterval = fps
@@ -95,6 +88,13 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         super.startAnimation()
         guard !animationActive else { return }
         animationActive = true
+
+        // Derive seed from screen — window is available now (not during init)
+        if let screenNumber = window?.screen?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32 {
+            displaySeed = UInt64(screenNumber)
+        } else {
+            displaySeed = UInt64(bitPattern: Int64(frame.origin.x.hashValue &+ frame.origin.y.hashValue))
+        }
 
         let root = self.layer ?? {
             let l = CALayer()
