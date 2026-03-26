@@ -99,6 +99,8 @@
 		AA0000000000003B /* StartupStaggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003B /* StartupStaggerTests.swift */; };
 		AA0000000000003C /* BatteryModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003C /* BatteryModeTests.swift */; };
 		BB0000000000003A /* PreferencesController.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
+		AA0000000000003D /* TerminalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
+		BB0000000000003D /* TerminalLine.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +161,7 @@
 		AF00000000000039 /* AnimationLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationLoopTests.swift; sourceTree = "<group>"; };
 		AF0000000000003B /* StartupStaggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupStaggerTests.swift; sourceTree = "<group>"; };
 		AF0000000000003C /* BatteryModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryModeTests.swift; sourceTree = "<group>"; };
+		AF0000000000003D /* TerminalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalLine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +253,7 @@
 				AF01000000000006 /* PaneLayout.swift */,
 				AF01000000000007 /* ThemeColors.swift */,
 				AF01000000000008 /* Preferences.swift */,
+				AF0000000000003D /* TerminalLine.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -535,6 +539,7 @@
 				AA00000000000035 /* PreferencesStorage.swift in Sources */,
 				AA00000000000036 /* PreferencesController.swift in Sources */,
 				AA00000000000038 /* PaneController.swift in Sources */,
+				AA0000000000003D /* TerminalLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +579,7 @@
 				BB0000000000003A /* PreferencesController.swift in Sources (test) */,
 				AA0000000000003B /* StartupStaggerTests.swift in Sources */,
 				AA0000000000003C /* BatteryModeTests.swift in Sources */,
+				BB0000000000003D /* TerminalLine.swift in Sources (test) */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

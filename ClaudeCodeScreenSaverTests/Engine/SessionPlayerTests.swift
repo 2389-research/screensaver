@@ -5,6 +5,27 @@ import XCTest
 
 final class SessionPlayerTests: XCTestCase {
 
+    // MARK: - Helpers
+
+    /// Extracts the text content from a TerminalLine for assertion convenience.
+    private func textContent(of line: TerminalLine) -> String {
+        switch line {
+        case .prompt(let text): return text
+        case .response(let text): return text
+        case .toolCallHeader(let tool, let args): return "\(tool) \(args)"
+        case .toolResultContent(let text): return text
+        case .toolBlockBottom: return ""
+        case .thinking: return "Thinking..."
+        case .empty: return ""
+        }
+    }
+
+    private func linesContainText(_ lines: [TerminalLine], _ text: String) -> Bool {
+        lines.contains { textContent(of: $0).contains(text) }
+    }
+
+    // MARK: - Tests
+
     func testPromptTypingSpeed() {
         let player = SessionPlayer(events: [.userPrompt(text: "hello world")])
         player.advance(deltaTime: 0.0) // start
@@ -14,11 +35,21 @@ final class SessionPlayerTests: XCTestCase {
         let lines = player.visibleLines
         XCTAssertFalse(lines.isEmpty)
 
+        // First line should be a prompt type
+        if case .prompt = lines[0] {
+            // expected
+        } else {
+            XCTFail("Expected .prompt line, got \(lines[0])")
+        }
+
         // After enough time, full prompt should be visible
         player.advance(deltaTime: 0.3)
         let fullLines = player.visibleLines
-        let promptLine = fullLines.first(where: { $0.contains("hello world") })
-        XCTAssertNotNil(promptLine, "Full prompt should be visible after sufficient time")
+        let hasFullPrompt = fullLines.contains {
+            if case .prompt(let text) = $0 { return text.contains("hello world") }
+            return false
+        }
+        XCTAssertTrue(hasFullPrompt, "Full prompt should be visible after sufficient time")
     }
 
     func testResponseTypingSpeed() {
@@ -30,7 +61,10 @@ final class SessionPlayerTests: XCTestCase {
         player.advance(deltaTime: 3.0)
 
         // Response should now be partially or fully typed
-        let hasResponse = player.visibleLines.contains(where: { $0.contains("Hello") })
+        let hasResponse = player.visibleLines.contains {
+            if case .response(let text) = $0 { return text.contains("Hello") }
+            return false
+        }
         XCTAssertTrue(hasResponse)
     }
 
@@ -76,7 +110,10 @@ final class SessionPlayerTests: XCTestCase {
         player.advance(deltaTime: 0.4)
         // Should have moved past thinking into the response
         player.advance(deltaTime: 2.0) // finish pause + start response
-        let hasResponse = player.visibleLines.contains(where: { $0.contains("done") })
+        let hasResponse = player.visibleLines.contains {
+            if case .response(let text) = $0 { return text.contains("done") }
+            return false
+        }
         XCTAssertTrue(hasResponse)
     }
 
@@ -92,8 +129,9 @@ final class SessionPlayerTests: XCTestCase {
         XCTAssertLessThanOrEqual(visibleLines.count, 20)
         // Should show the bottom lines, not the top
         if let lastLine = visibleLines.last {
-            XCTAssertTrue(lastLine.contains("49") || lastLine.contains("4"),
-                         "Should show bottom of content, got: \(lastLine)")
+            let text = textContent(of: lastLine)
+            XCTAssertTrue(text.contains("49") || text.contains("4"),
+                         "Should show bottom of content, got: \(text)")
         }
     }
 
@@ -125,7 +163,10 @@ final class SessionPlayerTests: XCTestCase {
 
         // At 200 chars/sec, a short tool call should complete quickly
         player.advance(deltaTime: 0.5)
-        let hasToolCall = player.visibleLines.contains(where: { $0.contains("Read") })
+        let hasToolCall = player.visibleLines.contains {
+            if case .toolCallHeader(let tool, _) = $0 { return tool == "Read" }
+            return false
+        }
         XCTAssertTrue(hasToolCall)
     }
 
@@ -142,8 +183,8 @@ final class SessionPlayerTests: XCTestCase {
         player.advance(deltaTime: 30.0)
 
         let lines = player.visibleLines
-        XCTAssertTrue(lines.contains(where: { $0.contains("fix bug") }))
-        XCTAssertTrue(lines.contains(where: { $0.contains("Found it") }))
+        XCTAssertTrue(linesContainText(lines, "fix bug"))
+        XCTAssertTrue(linesContainText(lines, "Found it"))
     }
 
     func testEmptyEventsArray() {
@@ -151,5 +192,43 @@ final class SessionPlayerTests: XCTestCase {
         XCTAssertFalse(player.isPlaying)
         player.advance(deltaTime: 1.0)
         XCTAssertTrue(player.visibleLines.isEmpty)
+    }
+
+    func testToolResultEmitsTypedLines() {
+        let player = SessionPlayer(events: [.toolResult(content: "line one\nline two")])
+        player.advance(deltaTime: 1.0)
+
+        let resultLines = player.visibleLines.filter {
+            if case .toolResultContent = $0 { return true }
+            return false
+        }
+        XCTAssertEqual(resultLines.count, 2)
+    }
+
+    func testThinkingEmitsTypedLine() {
+        let player = SessionPlayer(events: [.thinking(durationHint: 2.0)])
+        player.advance(deltaTime: 0.0)
+        player.advance(deltaTime: 0.05)
+
+        let thinkingLines = player.visibleLines.filter {
+            if case .thinking = $0 { return true }
+            return false
+        }
+        XCTAssertEqual(thinkingLines.count, 1)
+    }
+
+    func testPromptLineType() {
+        let player = SessionPlayer(events: [.userPrompt(text: "hello")])
+        player.advance(deltaTime: 0.0)
+        player.advance(deltaTime: 1.0)
+
+        let promptLines = player.visibleLines.filter {
+            if case .prompt = $0 { return true }
+            return false
+        }
+        XCTAssertEqual(promptLines.count, 1)
+        if case .prompt(let text) = promptLines.first {
+            XCTAssertEqual(text, "hello")
+        }
     }
 }
