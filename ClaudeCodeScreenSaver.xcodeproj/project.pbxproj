@@ -40,6 +40,12 @@
 		BB0100000000000A /* SessionParser.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000F /* SessionParser.swift */; };
 		AA00000000000010 /* SessionParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000010 /* SessionParserTests.swift */; };
 		AA00000000000011 /* sample-session.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000011 /* sample-session.jsonl */; };
+		AA00000000000012 /* FontMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000012 /* FontMetrics.swift */; };
+		BB00000000000012 /* FontMetrics.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000012 /* FontMetrics.swift */; };
+		AA00000000000013 /* AttributedStringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000013 /* AttributedStringBuilder.swift */; };
+		BB00000000000013 /* AttributedStringBuilder.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000013 /* AttributedStringBuilder.swift */; };
+		AA00000000000014 /* FontMetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000014 /* FontMetricsTests.swift */; };
+		AA00000000000015 /* AttributedStringBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000015 /* AttributedStringBuilderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +73,10 @@
 		AF0100000000000F /* SessionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParser.swift; sourceTree = "<group>"; };
 		AF00000000000010 /* SessionParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParserTests.swift; sourceTree = "<group>"; };
 		AF00000000000011 /* sample-session.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-session.jsonl"; sourceTree = "<group>"; };
+		AF00000000000012 /* FontMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMetrics.swift; sourceTree = "<group>"; };
+		AF00000000000013 /* AttributedStringBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilder.swift; sourceTree = "<group>"; };
+		AF00000000000014 /* FontMetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMetricsTests.swift; sourceTree = "<group>"; };
+		AF00000000000015 /* AttributedStringBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +106,19 @@
 				AF0200000000001 /* Protocols */,
 				AF0200000000002 /* Models */,
 				AF0200000000005 /* Engine */,
+				AF0200000000008 /* Rendering */,
 				EB36834959854EB7B931C1BA /* Info.plist */,
 			);
 			path = ClaudeCodeScreenSaver;
+			sourceTree = "<group>";
+		};
+		AF0200000000008 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				AF00000000000012 /* FontMetrics.swift */,
+				AF00000000000013 /* AttributedStringBuilder.swift */,
+			);
+			path = Rendering;
 			sourceTree = "<group>";
 		};
 		AF0200000000005 /* Engine */ = {
@@ -155,9 +175,19 @@
 				AF0200000000003 /* Mocks */,
 				AF0200000000004 /* Models */,
 				AF0200000000006 /* Engine */,
+				AF0200000000009 /* Rendering (tests) */,
 				AF0200000000007 /* Fixtures */,
 			);
 			path = ClaudeCodeScreenSaverTests;
+			sourceTree = "<group>";
+		};
+		AF0200000000009 /* Rendering (tests) */ = {
+			isa = PBXGroup;
+			children = (
+				AF00000000000014 /* FontMetricsTests.swift */,
+				AF00000000000015 /* AttributedStringBuilderTests.swift */,
+			);
+			path = Rendering;
 			sourceTree = "<group>";
 		};
 		AF0200000000006 /* Engine */ = {
@@ -333,6 +363,8 @@
 				AA01000000000008 /* Preferences.swift in Sources */,
 				AA0100000000000D /* ThreadSafeBuffer.swift in Sources */,
 				AA0100000000000F /* SessionParser.swift in Sources */,
+				AA00000000000012 /* FontMetrics.swift in Sources */,
+				AA00000000000013 /* AttributedStringBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +390,10 @@
 				AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */,
 				BB0100000000000A /* SessionParser.swift in Sources (test) */,
 				AA00000000000010 /* SessionParserTests.swift in Sources */,
+				BB00000000000012 /* FontMetrics.swift in Sources (test) */,
+				BB00000000000013 /* AttributedStringBuilder.swift in Sources (test) */,
+				AA00000000000014 /* FontMetricsTests.swift in Sources */,
+				AA00000000000015 /* AttributedStringBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
