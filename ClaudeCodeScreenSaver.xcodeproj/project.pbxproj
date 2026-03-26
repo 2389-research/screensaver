@@ -106,6 +106,11 @@
 		BB00000000000035 /* PreferencesStorage.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000035 /* PreferencesStorage.swift */; };
 		AA00000000000036 /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
 		AA00000000000037 /* PreferencesStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000037 /* PreferencesStorageTests.swift */; };
+		AA00000000000038 /* PaneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000038 /* PaneController.swift */; };
+		BB00000000000038 /* PaneController.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000038 /* PaneController.swift */; };
+		AA00000000000039 /* AnimationLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000039 /* AnimationLoopTests.swift */; };
+		BB00000000000039 /* ClaudeCodeScreenSaverView.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */; };
+		BB0000000000003A /* PreferencesController.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +176,8 @@
 		AF00000000000035 /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		AF00000000000036 /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		AF00000000000037 /* PreferencesStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorageTests.swift; sourceTree = "<group>"; };
+		AF00000000000038 /* PaneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneController.swift; sourceTree = "<group>"; };
+		AF00000000000039 /* AnimationLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationLoopTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +242,7 @@
 			children = (
 				DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */,
 				AF00000000000036 /* PreferencesController.swift */,
+				AF00000000000038 /* PaneController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -319,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				AF00000000000034 /* BundledSessionsTests.swift */,
+				AF00000000000039 /* AnimationLoopTests.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -556,6 +565,7 @@
 				AA0000000000001E /* TmuxChromeRenderer.swift in Sources */,
 				AA00000000000035 /* PreferencesStorage.swift in Sources */,
 				AA00000000000036 /* PreferencesController.swift in Sources */,
+				AA00000000000038 /* PaneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +608,10 @@
 				AA00000000000034 /* BundledSessionsTests.swift in Sources */,
 				BB00000000000035 /* PreferencesStorage.swift in Sources (test) */,
 				AA00000000000037 /* PreferencesStorageTests.swift in Sources */,
+				BB00000000000038 /* PaneController.swift in Sources (test) */,
+				AA00000000000039 /* AnimationLoopTests.swift in Sources */,
+				BB00000000000039 /* ClaudeCodeScreenSaverView.swift in Sources (test) */,
+				BB0000000000003A /* PreferencesController.swift in Sources (test) */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
