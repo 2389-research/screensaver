@@ -82,4 +82,59 @@ final class SessionParserTests: XCTestCase {
         let event = SessionParser.parseLine(line)
         XCTAssertEqual(event, .toolCall(tool: "Bash", args: "npm test"))
     }
+
+    // MARK: - parseAllFromLine tests
+
+    func testParseMultiContentAssistantMessage() {
+        let line = #"{"type":"assistant","message":{"role":"assistant","content":[{"type":"thinking","thinking":"hmm"},{"type":"text","text":"Here's the fix."}]}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertEqual(events.count, 2)
+        XCTAssertEqual(events[0], .thinking(durationHint: nil))
+        XCTAssertEqual(events[1], .assistantText(text: "Here's the fix."))
+    }
+
+    func testParseAllFromLineUserMessage() {
+        let line = #"{"type":"user","message":{"role":"user","content":"hello"}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertEqual(events.count, 1)
+        XCTAssertEqual(events[0], .userPrompt(text: "hello"))
+    }
+
+    func testParseAllFromLineSkippedType() {
+        let line = #"{"type":"progress","data":{}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertTrue(events.isEmpty)
+    }
+
+    func testParseAllFromLineApiError() {
+        let line = #"{"type":"assistant","isApiErrorMessage":true,"message":{"role":"assistant","content":[{"type":"text","text":"error"}]}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertTrue(events.isEmpty)
+    }
+
+    func testParseAllFromLineMeta() {
+        let line = #"{"type":"user","isMeta":true,"message":{"role":"user","content":"meta info"}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertTrue(events.isEmpty)
+    }
+
+    func testParseAllFromLineMalformedJSON() {
+        let events = SessionParser.parseAllFromLine("not json {")
+        XCTAssertTrue(events.isEmpty)
+    }
+
+    func testParseAllFromLineMultipleToolUseBlocks() {
+        let line = #"{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","name":"Read","input":{"file_path":"a.ts"}},{"type":"tool_use","name":"Bash","input":{"command":"ls"}}]}}"#
+        let events = SessionParser.parseAllFromLine(line)
+        XCTAssertEqual(events.count, 2)
+        XCTAssertEqual(events[0], .toolCall(tool: "Read", args: "a.ts"))
+        XCTAssertEqual(events[1], .toolCall(tool: "Bash", args: "ls"))
+    }
+
+    func testParseLineRemainsBackwardCompatible() {
+        // parseLine should still return the first event from a multi-block message
+        let line = #"{"type":"assistant","message":{"role":"assistant","content":[{"type":"thinking","thinking":"hmm"},{"type":"text","text":"Done."}]}}"#
+        let event = SessionParser.parseLine(line)
+        XCTAssertEqual(event, .thinking(durationHint: nil))
+    }
 }

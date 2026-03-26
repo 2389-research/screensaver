@@ -5,37 +5,42 @@ import Foundation
 
 enum SessionParser {
 
-    static func parseLine(_ line: String) -> SessionEvent? {
+    static func parseAllFromLine(_ line: String) -> [SessionEvent] {
         guard let data = line.data(using: .utf8),
               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return nil
+            return []
         }
 
-        if json["isApiErrorMessage"] as? Bool == true { return nil }
-        if json["isMeta"] as? Bool == true { return nil }
+        if json["isApiErrorMessage"] as? Bool == true { return [] }
+        if json["isMeta"] as? Bool == true { return [] }
 
-        guard let type = json["type"] as? String else { return nil }
+        guard let type = json["type"] as? String else { return [] }
 
         switch type {
         case "user":
-            return parseUserMessage(json)
+            if let event = parseUserMessage(json) { return [event] }
+            return []
         case "assistant":
             return parseAssistantMessage(json)
         case "file-history-snapshot", "progress", "summary", "system",
              "last-prompt", "queue-operation":
-            return nil
+            return []
         default:
-            return nil
+            return []
         }
+    }
+
+    static func parseLine(_ line: String) -> SessionEvent? {
+        parseAllFromLine(line).first
     }
 
     static func parseFile(at url: URL) -> [SessionEvent] {
         guard let data = try? String(contentsOf: url, encoding: .utf8) else { return [] }
         return data.components(separatedBy: .newlines)
-            .compactMap { line in
+            .flatMap { line in
                 let trimmed = line.trimmingCharacters(in: .whitespaces)
-                guard !trimmed.isEmpty else { return nil }
-                return parseLine(trimmed)
+                guard !trimmed.isEmpty else { return [SessionEvent]() }
+                return parseAllFromLine(trimmed)
             }
     }
 
@@ -66,19 +71,19 @@ enum SessionParser {
         return nil
     }
 
-    private static func parseAssistantMessage(_ json: [String: Any]) -> SessionEvent? {
+    private static func parseAssistantMessage(_ json: [String: Any]) -> [SessionEvent] {
         guard let message = json["message"] as? [String: Any],
               let content = message["content"] as? [[String: Any]] else {
-            return nil
+            return []
         }
 
+        var events: [SessionEvent] = []
         for item in content {
             guard let itemType = item["type"] as? String else { continue }
-
             switch itemType {
             case "text":
                 if let text = item["text"] as? String {
-                    return .assistantText(text: text)
+                    events.append(.assistantText(text: text))
                 }
             case "tool_use":
                 let tool = item["name"] as? String ?? "Unknown"
@@ -91,14 +96,13 @@ enum SessionParser {
                 } else {
                     args = tool
                 }
-                return .toolCall(tool: tool, args: args)
+                events.append(.toolCall(tool: tool, args: args))
             case "thinking":
-                return .thinking(durationHint: nil)
+                events.append(.thinking(durationHint: nil))
             default:
                 continue
             }
         }
-
-        return nil
+        return events
     }
 }
