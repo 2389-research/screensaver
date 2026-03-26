@@ -74,7 +74,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         if let screenNumber = window?.screen?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32 {
             displaySeed = UInt64(screenNumber)
         } else {
-            displaySeed = UInt64(frame.origin.x.hashValue &+ frame.origin.y.hashValue)
+            displaySeed = UInt64(bitPattern: Int64(frame.origin.x.hashValue &+ frame.origin.y.hashValue))
         }
 
         let onBattery = Self.isOnBattery()
