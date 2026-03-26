@@ -46,6 +46,9 @@
 		BB00000000000013 /* AttributedStringBuilder.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000013 /* AttributedStringBuilder.swift */; };
 		AA00000000000014 /* FontMetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000014 /* FontMetricsTests.swift */; };
 		AA00000000000015 /* AttributedStringBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000015 /* AttributedStringBuilderTests.swift */; };
+		AA00000000000016 /* TmuxLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000016 /* TmuxLayoutEngine.swift */; };
+		BB00000000000016 /* TmuxLayoutEngine.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000016 /* TmuxLayoutEngine.swift */; };
+		AA00000000000017 /* TmuxLayoutEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000017 /* TmuxLayoutEngineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +80,8 @@
 		AF00000000000013 /* AttributedStringBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilder.swift; sourceTree = "<group>"; };
 		AF00000000000014 /* FontMetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMetricsTests.swift; sourceTree = "<group>"; };
 		AF00000000000015 /* AttributedStringBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilderTests.swift; sourceTree = "<group>"; };
+		AF00000000000016 /* TmuxLayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxLayoutEngine.swift; sourceTree = "<group>"; };
+		AF00000000000017 /* TmuxLayoutEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxLayoutEngineTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +131,7 @@
 			children = (
 				AF0100000000000D /* ThreadSafeBuffer.swift */,
 				AF0100000000000F /* SessionParser.swift */,
+				AF00000000000016 /* TmuxLayoutEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -195,6 +201,7 @@
 			children = (
 				AF0100000000000E /* ThreadSafeBufferTests.swift */,
 				AF00000000000010 /* SessionParserTests.swift */,
+				AF00000000000017 /* TmuxLayoutEngineTests.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -365,6 +372,7 @@
 				AA0100000000000F /* SessionParser.swift in Sources */,
 				AA00000000000012 /* FontMetrics.swift in Sources */,
 				AA00000000000013 /* AttributedStringBuilder.swift in Sources */,
+				AA00000000000016 /* TmuxLayoutEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +402,8 @@
 				BB00000000000013 /* AttributedStringBuilder.swift in Sources (test) */,
 				AA00000000000014 /* FontMetricsTests.swift in Sources */,
 				AA00000000000015 /* AttributedStringBuilderTests.swift in Sources */,
+				BB00000000000016 /* TmuxLayoutEngine.swift in Sources (test) */,
+				AA00000000000017 /* TmuxLayoutEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
