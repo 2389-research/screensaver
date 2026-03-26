@@ -36,6 +36,10 @@
 		AA0100000000000D /* ThreadSafeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
 		BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
 		AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000E /* ThreadSafeBufferTests.swift */; };
+		AA0100000000000F /* SessionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000F /* SessionParser.swift */; };
+		BB0100000000000A /* SessionParser.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000F /* SessionParser.swift */; };
+		AA00000000000010 /* SessionParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000010 /* SessionParserTests.swift */; };
+		AA00000000000011 /* sample-session.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = AF00000000000011 /* sample-session.jsonl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +64,9 @@
 		AF0100000000000C /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		AF0100000000000D /* ThreadSafeBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBuffer.swift; sourceTree = "<group>"; };
 		AF0100000000000E /* ThreadSafeBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBufferTests.swift; sourceTree = "<group>"; };
+		AF0100000000000F /* SessionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParser.swift; sourceTree = "<group>"; };
+		AF00000000000010 /* SessionParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParserTests.swift; sourceTree = "<group>"; };
+		AF00000000000011 /* sample-session.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-session.jsonl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				AF0100000000000D /* ThreadSafeBuffer.swift */,
+				AF0100000000000F /* SessionParser.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -147,6 +155,7 @@
 				AF0200000000003 /* Mocks */,
 				AF0200000000004 /* Models */,
 				AF0200000000006 /* Engine */,
+				AF0200000000007 /* Fixtures */,
 			);
 			path = ClaudeCodeScreenSaverTests;
 			sourceTree = "<group>";
@@ -155,8 +164,17 @@
 			isa = PBXGroup;
 			children = (
 				AF0100000000000E /* ThreadSafeBufferTests.swift */,
+				AF00000000000010 /* SessionParserTests.swift */,
 			);
 			path = Engine;
+			sourceTree = "<group>";
+		};
+		AF0200000000007 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				AF00000000000011 /* sample-session.jsonl */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		AF0200000000003 /* Mocks */ = {
@@ -230,6 +248,7 @@
 			buildPhases = (
 				14211AD7124D4549BA966E3B /* Sources */,
 				744A409A2640493ABD8D884E /* Frameworks */,
+				CC00000000000001 /* Resources (test) */,
 			);
 			buildRules = (
 			);
@@ -287,6 +306,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC00000000000001 /* Resources (test) */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA00000000000011 /* sample-session.jsonl in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -305,6 +332,7 @@
 				AA01000000000007 /* ThemeColors.swift in Sources */,
 				AA01000000000008 /* Preferences.swift in Sources */,
 				AA0100000000000D /* ThreadSafeBuffer.swift in Sources */,
+				AA0100000000000F /* SessionParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +356,8 @@
 				AA0100000000000C /* PreferencesTests.swift in Sources */,
 				BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */,
 				AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */,
+				BB0100000000000A /* SessionParser.swift in Sources (test) */,
+				AA00000000000010 /* SessionParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

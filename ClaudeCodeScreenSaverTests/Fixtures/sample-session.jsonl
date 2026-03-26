@@ -1,0 +1,10 @@
+{"type":"user","message":{"role":"user","content":"fix the auth bug"}}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"thinking","thinking":"analyzing..."}]}}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"I'll fix the auth middleware."}]}}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","name":"Read","input":{"file_path":"src/auth.ts"}}]}}
+{"type":"user","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"t1","content":"export function auth() {}"}]}}
+{"type":"file-history-snapshot","snapshot":{}}
+{"type":"progress","data":{}}
+this is malformed json
+{"type":"user","isMeta":true,"message":{"role":"user","content":"meta"}}
+{"type":"assistant","isApiErrorMessage":true,"message":{"role":"assistant","content":[{"type":"text","text":"error"}]}}
