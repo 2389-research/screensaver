@@ -33,6 +33,9 @@
 		BB01000000000006 /* PaneLayout.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000006 /* PaneLayout.swift */; };
 		BB01000000000007 /* ThemeColors.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000007 /* ThemeColors.swift */; };
 		BB01000000000008 /* Preferences.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000008 /* Preferences.swift */; };
+		AA0100000000000D /* ThreadSafeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
+		BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
+		AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000E /* ThreadSafeBufferTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,8 @@
 		AF0100000000000A /* MockSessionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSessionDataSource.swift; sourceTree = "<group>"; };
 		AF0100000000000B /* MockLayoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLayoutMetrics.swift; sourceTree = "<group>"; };
 		AF0100000000000C /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
+		AF0100000000000D /* ThreadSafeBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBuffer.swift; sourceTree = "<group>"; };
+		AF0100000000000E /* ThreadSafeBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBufferTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +88,18 @@
 				6C53338FFA7841EAAE088FE9 /* Helpers */,
 				AF0200000000001 /* Protocols */,
 				AF0200000000002 /* Models */,
+				AF0200000000005 /* Engine */,
 				EB36834959854EB7B931C1BA /* Info.plist */,
 			);
 			path = ClaudeCodeScreenSaver;
+			sourceTree = "<group>";
+		};
+		AF0200000000005 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				AF0100000000000D /* ThreadSafeBuffer.swift */,
+			);
+			path = Engine;
 			sourceTree = "<group>";
 		};
 		F95393C7ED6241A89320C8B3 /* View */ = {
@@ -132,8 +146,17 @@
 				61E661FAFE704D91B39F3793 /* NSColorHexTests.swift */,
 				AF0200000000003 /* Mocks */,
 				AF0200000000004 /* Models */,
+				AF0200000000006 /* Engine */,
 			);
 			path = ClaudeCodeScreenSaverTests;
+			sourceTree = "<group>";
+		};
+		AF0200000000006 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				AF0100000000000E /* ThreadSafeBufferTests.swift */,
+			);
+			path = Engine;
 			sourceTree = "<group>";
 		};
 		AF0200000000003 /* Mocks */ = {
@@ -281,6 +304,7 @@
 				AA01000000000006 /* PaneLayout.swift in Sources */,
 				AA01000000000007 /* ThemeColors.swift in Sources */,
 				AA01000000000008 /* Preferences.swift in Sources */,
+				AA0100000000000D /* ThreadSafeBuffer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +326,8 @@
 				AA0100000000000A /* MockSessionDataSource.swift in Sources */,
 				AA0100000000000B /* MockLayoutMetrics.swift in Sources */,
 				AA0100000000000C /* PreferencesTests.swift in Sources */,
+				BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */,
+				AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
