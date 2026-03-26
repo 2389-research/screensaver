@@ -112,12 +112,14 @@ Each line is a JSON object. The player extracts displayable events:
 
 | JSONL `type` field | Content path | Rendered as |
 |--------------------|-------------|-------------|
-| `"user"` | `message.content` (string) | Prompt input after `>` |
+| `"user"` | `message.content` is a string | Prompt input after `>` |
+| `"user"` | `message.content` is an array containing `tool_result` items | Tool output block |
 | `"assistant"` | `message.content[].type == "text"` | Typed response |
 | `"assistant"` | `message.content[].type == "tool_use"` | Tool call block (name + input) |
 | `"assistant"` | `message.content[].type == "thinking"` | Thinking spinner |
-| `"user"` (tool result) | `message.content[].type == "tool_result"` | Tool output block |
 | `"file-history-snapshot"` | — | Skipped |
+
+**Disambiguation:** User messages where `message.content` is a plain string are human prompts. User messages where `message.content` is an array (containing `tool_result` objects) are tool outputs from the previous assistant tool call.
 
 Events with `isApiErrorMessage: true` or `isMeta: true` are skipped.
 
