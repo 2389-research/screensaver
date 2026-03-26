@@ -55,6 +55,9 @@
 		AA0000000000001A /* BorderRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001A /* BorderRenderer.swift */; };
 		BB0000000000001A /* BorderRenderer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000001A /* BorderRenderer.swift */; };
 		AA0000000000001B /* BorderRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001B /* BorderRendererTests.swift */; };
+		AA0000000000001C /* TerminalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001C /* TerminalRenderer.swift */; };
+		BB0000000000001C /* TerminalRenderer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000001C /* TerminalRenderer.swift */; };
+		AA0000000000001D /* TerminalRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001D /* TerminalRendererTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +95,8 @@
 		AF00000000000019 /* SessionPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPlayerTests.swift; sourceTree = "<group>"; };
 		AF0000000000001A /* BorderRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderRenderer.swift; sourceTree = "<group>"; };
 		AF0000000000001B /* BorderRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderRendererTests.swift; sourceTree = "<group>"; };
+		AF0000000000001C /* TerminalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRenderer.swift; sourceTree = "<group>"; };
+		AF0000000000001D /* TerminalRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRendererTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +138,7 @@
 				AF00000000000012 /* FontMetrics.swift */,
 				AF00000000000013 /* AttributedStringBuilder.swift */,
 				AF0000000000001A /* BorderRenderer.swift */,
+				AF0000000000001C /* TerminalRenderer.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -205,6 +211,7 @@
 				AF00000000000014 /* FontMetricsTests.swift */,
 				AF00000000000015 /* AttributedStringBuilderTests.swift */,
 				AF0000000000001B /* BorderRendererTests.swift */,
+				AF0000000000001D /* TerminalRendererTests.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -389,6 +396,7 @@
 				AA00000000000016 /* TmuxLayoutEngine.swift in Sources */,
 				AA00000000000018 /* SessionPlayer.swift in Sources */,
 				AA0000000000001A /* BorderRenderer.swift in Sources */,
+				AA0000000000001C /* TerminalRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +432,8 @@
 				AA00000000000019 /* SessionPlayerTests.swift in Sources */,
 				BB0000000000001A /* BorderRenderer.swift in Sources (test) */,
 				AA0000000000001B /* BorderRendererTests.swift in Sources */,
+				BB0000000000001C /* TerminalRenderer.swift in Sources (test) */,
+				AA0000000000001D /* TerminalRendererTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
