@@ -1,0 +1,127 @@
+<h2>Well, Actually: Implementation Plan Review</h2>
+<p class="subtitle">4 pedants, 45+ findings — the plan needs surgery before execution</p>
+
+<div class="section">
+  <h3>Show-Stoppers (will block compilation or produce wrong architecture)</h3>
+
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <tr style="border-bottom:2px solid #444; text-align:left;">
+      <th style="padding:8px;">#</th>
+      <th style="padding:8px;">Issue</th>
+      <th style="padding:8px;">Source</th>
+      <th style="padding:8px;">Fix</th>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px; color:#f7768e; font-weight:bold;">1</td>
+      <td style="padding:8px;">FontMetrics.measureCharAdvance passes nil to non-nullable pointer — compile error</td>
+      <td style="padding:8px;">TUI Designer</td>
+      <td style="padding:8px;">Rewrite with single CGGlyph array</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px; color:#f7768e; font-weight:bold;">2</td>
+      <td style="padding:8px;">NSColor(hex:) doesn't exist in AppKit — 13 compile errors</td>
+      <td style="padding:8px;">TUI Designer</td>
+      <td style="padding:8px;">Add NSColor hex extension or use srgbRed:green:blue:</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px; color:#f7768e; font-weight:bold;">3</td>
+      <td style="padding:8px;">CALayer.borderWidth can't draw junction chars (forked pipes) and occludes pane content</td>
+      <td style="padding:8px;">tmux Enthusiast</td>
+      <td style="padding:8px;">Draw borders as text characters in the monospace grid, not layer borders</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px; color:#f7768e; font-weight:bold;">4</td>
+      <td style="padding:8px;">SessionDataSource is sync [SessionEvent] in plan but AsyncThrowingStream in spec — breaks threading model</td>
+      <td style="padding:8px;">TUI, Linux, Collector</td>
+      <td style="padding:8px;">Use async stream; ThreadSafeBuffer becomes vestigial without it</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px; color:#f7768e; font-weight:bold;">5</td>
+      <td style="padding:8px;">First visual moment is Task 10/12 — 9 tasks of infrastructure before a pixel renders</td>
+      <td style="padding:8px;">Collector</td>
+      <td style="padding:8px;">Add Task 0: throwaway visual prototype. Reorder to visuals-first.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>Structural Issues (wrong approach or missing tasks)</h3>
+
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <tr style="border-bottom:2px solid #444; text-align:left;">
+      <th style="padding:8px;">#</th>
+      <th style="padding:8px;">Issue</th>
+      <th style="padding:8px;">Source</th>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">6</td>
+      <td style="padding:8px;">OLED-safe mode in preferences but no implementation task</td>
+      <td style="padding:8px;">Collector</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">7</td>
+      <td style="padding:8px;">No signing/notarization task despite spec requiring it</td>
+      <td style="padding:8px;">Collector</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">8</td>
+      <td style="padding:8px;">Active pane rotation should be content-driven (new prompt = focus shift), not random timer</td>
+      <td style="padding:8px;">tmux Enthusiast</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">9</td>
+      <td style="padding:8px;">Platform types (NSColor, CTFont, ScreenSaver.framework) leak into model/protocol files</td>
+      <td style="padding:8px;">Linux Guy</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">10</td>
+      <td style="padding:8px;">AttributedStringBuilder has no code, no API surface, no function signatures</td>
+      <td style="padding:8px;">TUI Designer</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">11</td>
+      <td style="padding:8px;">TmuxChromeRenderer tests marked "optional" — the most authenticity-critical code</td>
+      <td style="padding:8px;">tmux Enthusiast</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">12</td>
+      <td style="padding:8px;">No visual quality gates between tasks — no "watch it for 10 minutes" checkpoints</td>
+      <td style="padding:8px;">Collector</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">13</td>
+      <td style="padding:8px;">No LICENSE file in any task</td>
+      <td style="padding:8px;">Linux Guy</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">14</td>
+      <td style="padding:8px;">Status bar height not derived from font metrics — will look wrong</td>
+      <td style="padding:8px;">tmux Enthusiast</td>
+    </tr>
+    <tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;">15</td>
+      <td style="padding:8px;">Session name "[project]" is hard-coded literal, never derived from session file</td>
+      <td style="padding:8px;">tmux Enthusiast</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>Missing Test Coverage</h3>
+
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:12px;">
+    <tr style="border-bottom:2px solid #444; text-align:left;">
+      <th style="padding:8px;">What's Untested</th>
+      <th style="padding:8px;">Source</th>
+    </tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Viewport bottom-tracking (most fundamental terminal behavior)</td><td style="padding:8px;">TUI Designer</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Tool result 300ms fade-in</td><td style="padding:8px;">TUI Designer</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Spinner 100ms advance rate with concrete assertions</td><td style="padding:8px;">TUI Designer</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Startup stagger sequence</td><td style="padding:8px;">Collector</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Battery detection reducing panes/fps</td><td style="padding:8px;">Collector</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Split ratio constrained to 40-60%</td><td style="padding:8px;">tmux Enthusiast</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Cursor X/Y positioning across multiple lines</td><td style="padding:8px;">TUI Designer</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Bold attribute on user input/prompt</td><td style="padding:8px;">TUI Designer</td></tr>
+    <tr style="border-bottom:1px solid #333;"><td style="padding:8px;">Performance benchmark (CPU &lt; 8%)</td><td style="padding:8px;">Collector</td></tr>
+  </table>
+</div>

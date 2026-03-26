@@ -1,0 +1,63 @@
+<h2>Architecture Overview</h2>
+<p class="subtitle">ClaudeCodeScreenSaver.saver — Core Animation based</p>
+
+<div class="mockup">
+  <div class="mockup-header">Component Architecture</div>
+  <div class="mockup-body" style="padding: 24px; font-family: monospace; font-size: 13px; line-height: 1.6;">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+      <div style="border: 2px solid #6366f1; border-radius: 8px; padding: 12px;">
+        <div style="color: #6366f1; font-weight: bold; margin-bottom: 8px;">ScreenSaverView (entry point)</div>
+        <div style="color: #888;">Subclass of ScreenSaverView. Owns the root CALayer tree.</div>
+        <div style="color: #888;">Handles animateOneFrame() tick, preferences sheet.</div>
+      </div>
+
+      <div style="text-align: center; color: #666;">|</div>
+
+      <div style="border: 2px solid #f59e0b; border-radius: 8px; padding: 12px;">
+        <div style="color: #f59e0b; font-weight: bold; margin-bottom: 8px;">TmuxLayoutEngine</div>
+        <div style="color: #888;">Manages pane tree (splits, resizes, adds, removes).</div>
+        <div style="color: #888;">Outputs frame rects for each pane. Handles slow evolution.</div>
+      </div>
+
+      <div style="text-align: center; color: #666;">|</div>
+
+      <div style="display: flex; gap: 12px;">
+        <div style="flex: 1; border: 2px solid #10b981; border-radius: 8px; padding: 12px;">
+          <div style="color: #10b981; font-weight: bold; margin-bottom: 8px;">PaneView (x N)</div>
+          <div style="color: #888;">CALayer container per pane.</div>
+          <div style="color: #888;">Contains: TerminalRenderer + TmuxChrome</div>
+        </div>
+        <div style="flex: 1; border: 2px solid #10b981; border-radius: 8px; padding: 12px;">
+          <div style="color: #10b981; font-weight: bold; margin-bottom: 8px;">TmuxChromeLayer</div>
+          <div style="color: #888;">Green status bar, pane borders,</div>
+          <div style="color: #888;">window tabs, pane numbers.</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; color: #666;">|</div>
+
+      <div style="display: flex; gap: 12px;">
+        <div style="flex: 1; border: 2px solid #ec4899; border-radius: 8px; padding: 12px;">
+          <div style="color: #ec4899; font-weight: bold; margin-bottom: 8px;">TerminalRenderer</div>
+          <div style="color: #888;">CATextLayer grid. Renders attributed strings</div>
+          <div style="color: #888;">with ANSI colors. Handles cursor, scrolling.</div>
+        </div>
+        <div style="flex: 1; border: 2px solid #ec4899; border-radius: 8px; padding: 12px;">
+          <div style="color: #ec4899; font-weight: bold; margin-bottom: 8px;">SessionPlayer</div>
+          <div style="color: #888;">Reads JSONL corpus. Drives typing speed,</div>
+          <div style="color: #888;">pauses, tool blocks. One per pane.</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; color: #666;">|</div>
+
+      <div style="border: 2px solid #8b5cf6; border-radius: 8px; padding: 12px;">
+        <div style="color: #8b5cf6; font-weight: bold; margin-bottom: 8px;">JSONL Session Corpus (bundled resource)</div>
+        <div style="color: #888;">~20-30 hand-crafted sessions. Each is a sequence of events:</div>
+        <div style="color: #888;">prompt, response_chunk, tool_call, tool_result, thinking, etc.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
