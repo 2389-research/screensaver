@@ -290,43 +290,6 @@ enum BorderRenderer {
                     ))
                 }
 
-                // Offset origin case: one pane's minY = other's minY + lineHeight
-                let minYDiffAB = a.frame.minY - b.frame.minY
-                if abs(minYDiffAB - lineHeight) < tolerance {
-                    borders.append(BorderLine(
-                        position: b.frame.minY,
-                        minExtent: overlapMinX,
-                        maxExtent: overlapMaxX,
-                        isAdjacentToActive: a.isActive || b.isActive
-                    ))
-                }
-                if abs(-minYDiffAB - lineHeight) < tolerance {
-                    borders.append(BorderLine(
-                        position: a.frame.minY,
-                        minExtent: overlapMinX,
-                        maxExtent: overlapMaxX,
-                        isAdjacentToActive: a.isActive || b.isActive
-                    ))
-                }
-
-                // Offset top case: one pane's maxY = other's maxY + lineHeight
-                let maxYDiffAB = a.frame.maxY - b.frame.maxY
-                if abs(maxYDiffAB - lineHeight) < tolerance {
-                    borders.append(BorderLine(
-                        position: b.frame.maxY,
-                        minExtent: overlapMinX,
-                        maxExtent: overlapMaxX,
-                        isAdjacentToActive: a.isActive || b.isActive
-                    ))
-                }
-                if abs(-maxYDiffAB - lineHeight) < tolerance {
-                    borders.append(BorderLine(
-                        position: a.frame.maxY,
-                        minExtent: overlapMinX,
-                        maxExtent: overlapMaxX,
-                        isAdjacentToActive: a.isActive || b.isActive
-                    ))
-                }
             }
         }
 

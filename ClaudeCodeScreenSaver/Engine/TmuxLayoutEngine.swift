@@ -83,15 +83,22 @@ final class TmuxLayoutEngine {
     private var rng: SeededRNG
     private var root: LayoutNode
 
+    // Font metrics used for gap sizing between panes
+    private let charAdvance: CGFloat
+    private let lineHeight: CGFloat
+
     // Minimum pane size in pixels (computed from 40 cols × 10 rows at 9pt Menlo).
     private let minPaneWidth: CGFloat
     private let minPaneHeight: CGFloat
 
-    init(bounds: CGRect, minPanes: Int, maxPanes: Int, seed: UInt64) {
+    init(bounds: CGRect, minPanes: Int, maxPanes: Int, seed: UInt64,
+         charAdvance: CGFloat, lineHeight: CGFloat) {
         self.bounds = bounds
         self.minPanes = max(1, minPanes)
         self.maxPanes = max(self.minPanes, maxPanes)
         self.rng = SeededRNG(seed: seed)
+        self.charAdvance = charAdvance
+        self.lineHeight = lineHeight
 
         // Compute minimum pane pixel dimensions from 9pt Menlo metrics.
         let floorFont = CTFontCreateWithName("Menlo" as CFString, 9.0, nil)
@@ -101,8 +108,8 @@ final class TmuxLayoutEngine {
         var advance = CGSize.zero
         CTFontGetAdvancesForGlyphs(floorFont, .horizontal, glyphs, &advance, 1)
         self.minPaneWidth = CGFloat(40) * advance.width
-        let lineHeight = CTFontGetAscent(floorFont) + CTFontGetDescent(floorFont) + CTFontGetLeading(floorFont)
-        self.minPaneHeight = CGFloat(10) * lineHeight
+        let floorLineHeight = CTFontGetAscent(floorFont) + CTFontGetDescent(floorFont) + CTFontGetLeading(floorFont)
+        self.minPaneHeight = CGFloat(10) * floorLineHeight
 
         // Build the initial leaf and then randomly split until we reach a target count.
         let initialLeaf = LeafNode(isActive: true)
@@ -188,19 +195,25 @@ final class TmuxLayoutEngine {
         }
     }
 
-    /// Splits a frame along an axis at the given ratio.
+    /// Splits a frame along an axis at the given ratio, leaving a 1-character gap for borders.
     private func splitFrame(_ frame: CGRect, axis: SplitAxis, ratio: Double) -> (CGRect, CGRect) {
         switch axis {
         case .horizontal:
-            let w = frame.width * CGFloat(ratio)
-            let left = CGRect(x: frame.minX, y: frame.minY, width: w, height: frame.height)
-            let right = CGRect(x: frame.minX + w, y: frame.minY, width: frame.width - w, height: frame.height)
+            let gap = charAdvance
+            let availableWidth = frame.width - gap
+            let leftWidth = floor(availableWidth * CGFloat(ratio))
+            let rightWidth = availableWidth - leftWidth
+            let left = CGRect(x: frame.minX, y: frame.minY, width: leftWidth, height: frame.height)
+            let right = CGRect(x: frame.minX + leftWidth + gap, y: frame.minY, width: rightWidth, height: frame.height)
             return (left, right)
         case .vertical:
-            let h = frame.height * CGFloat(ratio)
-            let top = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: h)
-            let bottom = CGRect(x: frame.minX, y: frame.minY + h, width: frame.width, height: frame.height - h)
-            return (top, bottom)
+            let gap = lineHeight
+            let availableHeight = frame.height - gap
+            let firstHeight = floor(availableHeight * CGFloat(ratio))
+            let secondHeight = availableHeight - firstHeight
+            let first = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: firstHeight)
+            let second = CGRect(x: frame.minX, y: frame.minY + firstHeight + gap, width: frame.width, height: secondHeight)
+            return (first, second)
         }
     }
 
@@ -216,9 +229,10 @@ final class TmuxLayoutEngine {
         let (leaf, leafFrame) = candidates[idx]
 
         // Pick axis: prefer splitting the longer dimension.
+        // Account for the gap that will be inserted between the two child panes.
         let axis: SplitAxis
-        let canSplitH = leafFrame.width >= minPaneWidth * 2
-        let canSplitV = leafFrame.height >= minPaneHeight * 2
+        let canSplitH = leafFrame.width >= minPaneWidth * 2 + charAdvance
+        let canSplitV = leafFrame.height >= minPaneHeight * 2 + lineHeight
         if canSplitH && canSplitV {
             axis = leafFrame.width >= leafFrame.height ? .horizontal : .vertical
         } else if canSplitH {
@@ -237,11 +251,11 @@ final class TmuxLayoutEngine {
         return true
     }
 
-    /// Collects leaf nodes whose frames are large enough to be split.
+    /// Collects leaf nodes whose frames are large enough to be split (accounting for border gaps).
     private func collectSplittableLeaves(node: LayoutNode, frame: CGRect, into results: inout [(LeafNode, CGRect)]) {
         if let leaf = node as? LeafNode {
-            let canSplitH = frame.width >= minPaneWidth * 2
-            let canSplitV = frame.height >= minPaneHeight * 2
+            let canSplitH = frame.width >= minPaneWidth * 2 + charAdvance
+            let canSplitV = frame.height >= minPaneHeight * 2 + lineHeight
             if canSplitH || canSplitV {
                 results.append((leaf, frame))
             }

@@ -53,6 +53,9 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
     // Session data
     private var loadedSessions: [(events: [SessionEvent], fileName: String)] = []
 
+    // Pane area bounds (excludes status bar)
+    private var paneBounds: CGRect = .zero
+
     // RNG seed derived from screen for multi-display
     private var displaySeed: UInt64 = 42
 
@@ -127,12 +130,18 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
             width: bounds.width,
             height: bounds.height - statusBarH
         )
+        self.paneBounds = paneBounds
+
+        // Compute reference font metrics for border gap sizing
+        let refMetrics = FontMetrics.compute(for: paneBounds)
 
         layoutEngine = TmuxLayoutEngine(
             bounds: paneBounds,
             minPanes: max(2, paneCount - 2),
             maxPanes: paneCount,
-            seed: displaySeed
+            seed: displaySeed,
+            charAdvance: refMetrics.charAdvance,
+            lineHeight: refMetrics.lineHeight
         )
 
         let layouts = layoutEngine?.currentLayouts() ?? []
@@ -281,6 +290,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         paneControllers = []
         layoutEngine = nil
         chromeRenderer = nil
+        paneBounds = .zero
         statusBarLayer = nil
         statusBarRightLayer = nil
         statusBarFont = nil
@@ -351,7 +361,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
         let segments = BorderRenderer.computeSegments(
             layouts: layouts,
-            totalBounds: layoutEngine?.currentLayouts().first?.frame ?? bounds,
+            totalBounds: paneBounds,
             charAdvance: charAdvance,
             lineHeight: lineHeight
         )
@@ -393,7 +403,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
         let segments = BorderRenderer.computeSegments(
             layouts: layouts,
-            totalBounds: layouts.first?.frame ?? bounds,
+            totalBounds: paneBounds,
             charAdvance: firstPaneMetrics.charAdvance,
             lineHeight: firstPaneMetrics.lineHeight
         )

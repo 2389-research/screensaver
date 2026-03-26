@@ -36,13 +36,14 @@ final class BorderRendererTests: XCTestCase {
 
     func testHorizontalBorderBetweenTwoPanes() {
         let gap: CGFloat = 16.0 // line height
+        // Two panes stacked vertically with a lineHeight gap between them
         let layouts = [
-            PaneLayout(id: UUID(), frame: CGRect(x: 0, y: gap, width: 400, height: 200), isActive: false),
-            PaneLayout(id: UUID(), frame: CGRect(x: 0, y: 0, width: 400, height: 200 - gap), isActive: true)
+            PaneLayout(id: UUID(), frame: CGRect(x: 0, y: 0, width: 400, height: 200), isActive: true),
+            PaneLayout(id: UUID(), frame: CGRect(x: 0, y: 200 + gap, width: 400, height: 200), isActive: false)
         ]
         let segments = BorderRenderer.computeSegments(
             layouts: layouts,
-            totalBounds: CGRect(x: 0, y: 0, width: 400, height: 400),
+            totalBounds: CGRect(x: 0, y: 0, width: 400, height: 400 + gap),
             charAdvance: 8.0,
             lineHeight: gap
         )
