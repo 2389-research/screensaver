@@ -58,6 +58,9 @@
 		AA0000000000001C /* TerminalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001C /* TerminalRenderer.swift */; };
 		BB0000000000001C /* TerminalRenderer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000001C /* TerminalRenderer.swift */; };
 		AA0000000000001D /* TerminalRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001D /* TerminalRendererTests.swift */; };
+		AA0000000000001E /* TmuxChromeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001E /* TmuxChromeRenderer.swift */; };
+		BB0000000000001E /* TmuxChromeRenderer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000001E /* TmuxChromeRenderer.swift */; };
+		AA0000000000001F /* TmuxChromeRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000001F /* TmuxChromeRendererTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +100,8 @@
 		AF0000000000001B /* BorderRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderRendererTests.swift; sourceTree = "<group>"; };
 		AF0000000000001C /* TerminalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRenderer.swift; sourceTree = "<group>"; };
 		AF0000000000001D /* TerminalRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRendererTests.swift; sourceTree = "<group>"; };
+		AF0000000000001E /* TmuxChromeRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxChromeRenderer.swift; sourceTree = "<group>"; };
+		AF0000000000001F /* TmuxChromeRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxChromeRendererTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +144,7 @@
 				AF00000000000013 /* AttributedStringBuilder.swift */,
 				AF0000000000001A /* BorderRenderer.swift */,
 				AF0000000000001C /* TerminalRenderer.swift */,
+				AF0000000000001E /* TmuxChromeRenderer.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 				AF00000000000015 /* AttributedStringBuilderTests.swift */,
 				AF0000000000001B /* BorderRendererTests.swift */,
 				AF0000000000001D /* TerminalRendererTests.swift */,
+				AF0000000000001F /* TmuxChromeRendererTests.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -397,6 +404,7 @@
 				AA00000000000018 /* SessionPlayer.swift in Sources */,
 				AA0000000000001A /* BorderRenderer.swift in Sources */,
 				AA0000000000001C /* TerminalRenderer.swift in Sources */,
+				AA0000000000001E /* TmuxChromeRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +442,8 @@
 				AA0000000000001B /* BorderRendererTests.swift in Sources */,
 				BB0000000000001C /* TerminalRenderer.swift in Sources (test) */,
 				AA0000000000001D /* TerminalRendererTests.swift in Sources */,
+				BB0000000000001E /* TmuxChromeRenderer.swift in Sources (test) */,
+				AA0000000000001F /* TmuxChromeRendererTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
