@@ -88,9 +88,4 @@ class TerminalRenderer {
 
         CATransaction.commit()
     }
-
-    func resize(to frame: CGRect) {
-        // Rebuild for new dimensions — called when pane layout changes
-        containerLayer.frame = frame
-    }
 }

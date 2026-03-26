@@ -175,24 +175,6 @@ final class TmuxLayoutEngine {
         node.ratio = min(0.6, max(0.4, node.ratio + delta))
     }
 
-    /// Moves the active flag to a different pane.
-    func rotateActivePane() {
-        let layouts = currentLayouts()
-        guard layouts.count > 1 else { return }
-
-        let activeID = layouts.first(where: \.isActive)?.id
-        let nonActive = layouts.filter { !$0.isActive }
-        guard !nonActive.isEmpty else { return }
-
-        let newActiveIdx = rng.nextInt(nonActive.count)
-        let newActiveID = nonActive[newActiveIdx].id
-
-        setActive(id: newActiveID, in: root)
-        if let old = activeID {
-            setActive(id: old, active: false, in: root)
-        }
-    }
-
     // MARK: - Private helpers
 
     /// Walks the tree and computes frames, collecting PaneLayout values.
@@ -320,16 +302,6 @@ final class TmuxLayoutEngine {
             return leafIsActive(split.first) || leafIsActive(split.second)
         }
         return false
-    }
-
-    /// Finds the leaf with `id` and sets its isActive to true; deactivates all others.
-    private func setActive(id: UUID, in node: LayoutNode) {
-        if let leaf = node as? LeafNode {
-            if leaf.id == id { leaf.isActive = true }
-        } else if let split = node as? SplitNode {
-            setActive(id: id, in: split.first)
-            setActive(id: id, in: split.second)
-        }
     }
 
     /// Sets the active flag on the leaf matching `id` to `active`, leaving others unchanged.

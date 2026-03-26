@@ -13,29 +13,15 @@
 		F8E34D2F914042AF9288A0F8 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */; };
 		80C6920AAB9E4446A72F42E3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB36834959854EB7B931C1BA /* Info.plist */; };
 		9B56A6ED62354AB9A7055AE7 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C179A3B4B6A4CBDB92255EE /* ScreenSaver.framework */; };
-		AA01000000000001 /* AnimationClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000001 /* AnimationClock.swift */; };
-		AA01000000000002 /* SessionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000002 /* SessionDataSource.swift */; };
-		AA01000000000003 /* LayoutMetricsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000003 /* LayoutMetricsProvider.swift */; };
-		AA01000000000004 /* SystemAnimationClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000004 /* SystemAnimationClock.swift */; };
 		AA01000000000005 /* SessionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000005 /* SessionEvent.swift */; };
 		AA01000000000006 /* PaneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000006 /* PaneLayout.swift */; };
 		AA01000000000007 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000007 /* ThemeColors.swift */; };
 		AA01000000000008 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000008 /* Preferences.swift */; };
-		AA01000000000009 /* MockAnimationClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01000000000009 /* MockAnimationClock.swift */; };
-		AA0100000000000A /* MockSessionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000A /* MockSessionDataSource.swift */; };
-		AA0100000000000B /* MockLayoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000B /* MockLayoutMetrics.swift */; };
 		AA0100000000000C /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000C /* PreferencesTests.swift */; };
-		BB01000000000001 /* AnimationClock.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000001 /* AnimationClock.swift */; };
-		BB01000000000002 /* SessionDataSource.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000002 /* SessionDataSource.swift */; };
-		BB01000000000003 /* LayoutMetricsProvider.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000003 /* LayoutMetricsProvider.swift */; };
-		BB01000000000004 /* SystemAnimationClock.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000004 /* SystemAnimationClock.swift */; };
 		BB01000000000005 /* SessionEvent.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000005 /* SessionEvent.swift */; };
 		BB01000000000006 /* PaneLayout.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000006 /* PaneLayout.swift */; };
 		BB01000000000007 /* ThemeColors.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000007 /* ThemeColors.swift */; };
 		BB01000000000008 /* Preferences.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF01000000000008 /* Preferences.swift */; };
-		AA0100000000000D /* ThreadSafeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
-		BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000D /* ThreadSafeBuffer.swift */; };
-		AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000E /* ThreadSafeBufferTests.swift */; };
 		AA0100000000000F /* SessionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0100000000000F /* SessionParser.swift */; };
 		BB0100000000000A /* SessionParser.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0100000000000F /* SessionParser.swift */; };
 		AA00000000000010 /* SessionParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000010 /* SessionParserTests.swift */; };
@@ -123,20 +109,11 @@
 		2C179A3B4B6A4CBDB92255EE /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
 		0D334A12584D498D8FE1A373 /* ClaudeCodeScreenSaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeCodeScreenSaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E1D964A90142438D33B846 /* ClaudeCodeScreenSaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeCodeScreenSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF01000000000001 /* AnimationClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationClock.swift; sourceTree = "<group>"; };
-		AF01000000000002 /* SessionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDataSource.swift; sourceTree = "<group>"; };
-		AF01000000000003 /* LayoutMetricsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutMetricsProvider.swift; sourceTree = "<group>"; };
-		AF01000000000004 /* SystemAnimationClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAnimationClock.swift; sourceTree = "<group>"; };
 		AF01000000000005 /* SessionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEvent.swift; sourceTree = "<group>"; };
 		AF01000000000006 /* PaneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaneLayout.swift; sourceTree = "<group>"; };
 		AF01000000000007 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
 		AF01000000000008 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		AF01000000000009 /* MockAnimationClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAnimationClock.swift; sourceTree = "<group>"; };
-		AF0100000000000A /* MockSessionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSessionDataSource.swift; sourceTree = "<group>"; };
-		AF0100000000000B /* MockLayoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLayoutMetrics.swift; sourceTree = "<group>"; };
 		AF0100000000000C /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
-		AF0100000000000D /* ThreadSafeBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBuffer.swift; sourceTree = "<group>"; };
-		AF0100000000000E /* ThreadSafeBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeBufferTests.swift; sourceTree = "<group>"; };
 		AF0100000000000F /* SessionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParser.swift; sourceTree = "<group>"; };
 		AF00000000000010 /* SessionParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParserTests.swift; sourceTree = "<group>"; };
 		AF00000000000011 /* sample-session.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-session.jsonl"; sourceTree = "<group>"; };
@@ -233,7 +210,6 @@
 		AF0200000000005 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
-				AF0100000000000D /* ThreadSafeBuffer.swift */,
 				AF0100000000000F /* SessionParser.swift */,
 				AF00000000000016 /* TmuxLayoutEngine.swift */,
 				AF00000000000018 /* SessionPlayer.swift */,
@@ -255,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */,
-				AF01000000000004 /* SystemAnimationClock.swift */,
 				AF00000000000035 /* PreferencesStorage.swift */,
 			);
 			path = Helpers;
@@ -264,9 +239,6 @@
 		AF0200000000001 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				AF01000000000001 /* AnimationClock.swift */,
-				AF01000000000002 /* SessionDataSource.swift */,
-				AF01000000000003 /* LayoutMetricsProvider.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -311,7 +283,6 @@
 		AF0200000000006 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
-				AF0100000000000E /* ThreadSafeBufferTests.swift */,
 				AF00000000000010 /* SessionParserTests.swift */,
 				AF00000000000017 /* TmuxLayoutEngineTests.swift */,
 				AF00000000000019 /* SessionPlayerTests.swift */,
@@ -368,9 +339,6 @@
 		AF0200000000003 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				AF01000000000009 /* MockAnimationClock.swift */,
-				AF0100000000000A /* MockSessionDataSource.swift */,
-				AF0100000000000B /* MockLayoutMetrics.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -552,15 +520,10 @@
 			files = (
 				B4989ACD6ED345728B611E80 /* ClaudeCodeScreenSaverView.swift in Sources */,
 				EA11D54DA2824760ADE97CA8 /* NSColor+Hex.swift in Sources */,
-				AA01000000000001 /* AnimationClock.swift in Sources */,
-				AA01000000000002 /* SessionDataSource.swift in Sources */,
-				AA01000000000003 /* LayoutMetricsProvider.swift in Sources */,
-				AA01000000000004 /* SystemAnimationClock.swift in Sources */,
 				AA01000000000005 /* SessionEvent.swift in Sources */,
 				AA01000000000006 /* PaneLayout.swift in Sources */,
 				AA01000000000007 /* ThemeColors.swift in Sources */,
 				AA01000000000008 /* Preferences.swift in Sources */,
-				AA0100000000000D /* ThreadSafeBuffer.swift in Sources */,
 				AA0100000000000F /* SessionParser.swift in Sources */,
 				AA00000000000012 /* FontMetrics.swift in Sources */,
 				AA00000000000013 /* AttributedStringBuilder.swift in Sources */,
@@ -581,20 +544,11 @@
 			files = (
 				25163D85D151427DB3DD4FA5 /* NSColorHexTests.swift in Sources */,
 				F8E34D2F914042AF9288A0F8 /* NSColor+Hex.swift in Sources */,
-				BB01000000000001 /* AnimationClock.swift in Sources (test) */,
-				BB01000000000002 /* SessionDataSource.swift in Sources (test) */,
-				BB01000000000003 /* LayoutMetricsProvider.swift in Sources (test) */,
-				BB01000000000004 /* SystemAnimationClock.swift in Sources (test) */,
 				BB01000000000005 /* SessionEvent.swift in Sources (test) */,
 				BB01000000000006 /* PaneLayout.swift in Sources (test) */,
 				BB01000000000007 /* ThemeColors.swift in Sources (test) */,
 				BB01000000000008 /* Preferences.swift in Sources (test) */,
-				AA01000000000009 /* MockAnimationClock.swift in Sources */,
-				AA0100000000000A /* MockSessionDataSource.swift in Sources */,
-				AA0100000000000B /* MockLayoutMetrics.swift in Sources */,
 				AA0100000000000C /* PreferencesTests.swift in Sources */,
-				BB01000000000009 /* ThreadSafeBuffer.swift in Sources (test) */,
-				AA0100000000000E /* ThreadSafeBufferTests.swift in Sources */,
 				BB0100000000000A /* SessionParser.swift in Sources (test) */,
 				AA00000000000010 /* SessionParserTests.swift in Sources */,
 				BB00000000000012 /* FontMetrics.swift in Sources (test) */,

@@ -1,5 +1,5 @@
 // ABOUTME: NSViewController for the screensaver options panel (configureSheet).
-// ABOUTME: Provides controls for color scheme, density, real sessions, evolution speed, OLED mode.
+// ABOUTME: Provides controls for color scheme, density, evolution speed, and OLED mode.
 
 import AppKit
 import ScreenSaver
@@ -12,7 +12,6 @@ class PreferencesController: NSViewController {
     private let colorSchemeControl = NSSegmentedControl()
     private let densitySlider = NSSlider()
     private let densityLabel = NSTextField(labelWithString: "")
-    private let realSessionsCheckbox = NSButton(checkboxWithTitle: "Use real Claude Code sessions", target: nil, action: nil)
     private let evolutionSlider = NSSlider()
     private let evolutionLabel = NSTextField(labelWithString: "")
     private let oledCheckbox = NSButton(checkboxWithTitle: "OLED-safe mode", target: nil, action: nil)
@@ -27,9 +26,9 @@ class PreferencesController: NSViewController {
     required init?(coder: NSCoder) { fatalError("init(coder:) not supported") }
 
     override func loadView() {
-        let container = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 320))
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 280))
 
-        var y: CGFloat = 280
+        var y: CGFloat = 240
 
         // Title
         let title = NSTextField(labelWithString: "Claude Code Screensaver")
@@ -66,14 +65,6 @@ class PreferencesController: NSViewController {
         densityLabel.frame = NSRect(x: 320, y: y, width: 60, height: 20)
         densityLabel.stringValue = "\(preferences.paneDensityMax) panes"
         container.addSubview(densityLabel)
-        y -= 40
-
-        // Real sessions
-        realSessionsCheckbox.state = preferences.useRealSessions ? .on : .off
-        realSessionsCheckbox.frame = NSRect(x: 20, y: y, width: 360, height: 20)
-        realSessionsCheckbox.target = self
-        realSessionsCheckbox.action = #selector(realSessionsChanged)
-        container.addSubview(realSessionsCheckbox)
         y -= 40
 
         // Evolution speed
@@ -118,26 +109,7 @@ class PreferencesController: NSViewController {
 
     @objc private func densityChanged() {
         preferences.paneDensityMax = densitySlider.integerValue
-        preferences.paneDensityMin = max(3, densitySlider.integerValue - 3)
         densityLabel.stringValue = "\(densitySlider.integerValue) panes"
-        save()
-    }
-
-    @objc private func realSessionsChanged() {
-        let wantsReal = realSessionsCheckbox.state == .on
-        if wantsReal {
-            let alert = NSAlert()
-            alert.messageText = "Privacy Warning"
-            alert.informativeText = "Real sessions may contain file paths, API keys, and other sensitive content. This content will be visible on screen when the screensaver is active."
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "Enable")
-            alert.addButton(withTitle: "Cancel")
-            if alert.runModal() == .alertSecondButtonReturn {
-                realSessionsCheckbox.state = .off
-                return
-            }
-        }
-        preferences.useRealSessions = wantsReal
         save()
     }
 

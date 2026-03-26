@@ -101,18 +101,6 @@ final class TmuxLayoutEngineTests: XCTestCase {
         }
     }
 
-    func testRotateActivePaneChangesActivePane() {
-        let engine = TmuxLayoutEngine(bounds: CGRect(x: 0, y: 0, width: 1920, height: 1080),
-                                       minPanes: 5, maxPanes: 8, seed: 42)
-        let before = engine.currentLayouts().first(where: \.isActive)?.id
-        engine.rotateActivePane()
-        let after = engine.currentLayouts().first(where: \.isActive)?.id
-        // With 5+ panes and a seeded RNG, active should change (probabilistically)
-        // Just verify exactly one is active after rotation
-        let activeCount = engine.currentLayouts().filter(\.isActive).count
-        XCTAssertEqual(activeCount, 1)
-    }
-
     func testDeterministicWithSameSeed() {
         let engine1 = TmuxLayoutEngine(bounds: CGRect(x: 0, y: 0, width: 1920, height: 1080),
                                         minPanes: 5, maxPanes: 8, seed: 42)
