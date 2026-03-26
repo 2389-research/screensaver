@@ -49,6 +49,9 @@
 		AA00000000000016 /* TmuxLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000016 /* TmuxLayoutEngine.swift */; };
 		BB00000000000016 /* TmuxLayoutEngine.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000016 /* TmuxLayoutEngine.swift */; };
 		AA00000000000017 /* TmuxLayoutEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000017 /* TmuxLayoutEngineTests.swift */; };
+		AA00000000000018 /* SessionPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000018 /* SessionPlayer.swift */; };
+		BB00000000000018 /* SessionPlayer.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000018 /* SessionPlayer.swift */; };
+		AA00000000000019 /* SessionPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00000000000019 /* SessionPlayerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,8 @@
 		AF00000000000015 /* AttributedStringBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilderTests.swift; sourceTree = "<group>"; };
 		AF00000000000016 /* TmuxLayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxLayoutEngine.swift; sourceTree = "<group>"; };
 		AF00000000000017 /* TmuxLayoutEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmuxLayoutEngineTests.swift; sourceTree = "<group>"; };
+		AF00000000000018 /* SessionPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPlayer.swift; sourceTree = "<group>"; };
+		AF00000000000019 /* SessionPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPlayerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +137,7 @@
 				AF0100000000000D /* ThreadSafeBuffer.swift */,
 				AF0100000000000F /* SessionParser.swift */,
 				AF00000000000016 /* TmuxLayoutEngine.swift */,
+				AF00000000000018 /* SessionPlayer.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 				AF0100000000000E /* ThreadSafeBufferTests.swift */,
 				AF00000000000010 /* SessionParserTests.swift */,
 				AF00000000000017 /* TmuxLayoutEngineTests.swift */,
+				AF00000000000019 /* SessionPlayerTests.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -373,6 +380,7 @@
 				AA00000000000012 /* FontMetrics.swift in Sources */,
 				AA00000000000013 /* AttributedStringBuilder.swift in Sources */,
 				AA00000000000016 /* TmuxLayoutEngine.swift in Sources */,
+				AA00000000000018 /* SessionPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +412,8 @@
 				AA00000000000015 /* AttributedStringBuilderTests.swift in Sources */,
 				BB00000000000016 /* TmuxLayoutEngine.swift in Sources (test) */,
 				AA00000000000017 /* TmuxLayoutEngineTests.swift in Sources */,
+				BB00000000000018 /* SessionPlayer.swift in Sources (test) */,
+				AA00000000000019 /* SessionPlayerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
