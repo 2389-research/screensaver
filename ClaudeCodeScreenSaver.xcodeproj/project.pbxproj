@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B4989ACD6ED345728B611E80 /* ClaudeCodeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */; };
+		EA11D54DA2824760ADE97CA8 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */; };
+		25163D85D151427DB3DD4FA5 /* NSColorHexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E661FAFE704D91B39F3793 /* NSColorHexTests.swift */; };
+		F8E34D2F914042AF9288A0F8 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */; };
+		80C6920AAB9E4446A72F42E3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB36834959854EB7B931C1BA /* Info.plist */; };
+		9B56A6ED62354AB9A7055AE7 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C179A3B4B6A4CBDB92255EE /* ScreenSaver.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeCodeScreenSaverView.swift; sourceTree = "<group>"; };
+		03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		61E661FAFE704D91B39F3793 /* NSColorHexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorHexTests.swift; sourceTree = "<group>"; };
+		EB36834959854EB7B931C1BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C179A3B4B6A4CBDB92255EE /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
+		0D334A12584D498D8FE1A373 /* ClaudeCodeScreenSaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeCodeScreenSaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		74E1D964A90142438D33B846 /* ClaudeCodeScreenSaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClaudeCodeScreenSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E91D9FD7DE5421AB013EBD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B56A6ED62354AB9A7055AE7 /* ScreenSaver.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		744A409A2640493ABD8D884E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A8A007C104A4B1588489037 /* ClaudeCodeScreenSaver */ = {
+			isa = PBXGroup;
+			children = (
+				F95393C7ED6241A89320C8B3 /* View */,
+				6C53338FFA7841EAAE088FE9 /* Helpers */,
+				EB36834959854EB7B931C1BA /* Info.plist */,
+			);
+			path = ClaudeCodeScreenSaver;
+			sourceTree = "<group>";
+		};
+		F95393C7ED6241A89320C8B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA33BE6B754C42B1823C2FD7 /* ClaudeCodeScreenSaverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6C53338FFA7841EAAE088FE9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6D8499E8747048D7A05AC909 /* ClaudeCodeScreenSaverTests */ = {
+			isa = PBXGroup;
+			children = (
+				61E661FAFE704D91B39F3793 /* NSColorHexTests.swift */,
+			);
+			path = ClaudeCodeScreenSaverTests;
+			sourceTree = "<group>";
+		};
+		6BCC2DA4426C4FAF9868E30C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C179A3B4B6A4CBDB92255EE /* ScreenSaver.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE4D6DDBD8DC4850A5A7D2D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D334A12584D498D8FE1A373 /* ClaudeCodeScreenSaver.saver */,
+				74E1D964A90142438D33B846 /* ClaudeCodeScreenSaverTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE1A378DBB7B4EEEB7DFA7FC /* MainGroup */ = {
+			isa = PBXGroup;
+			children = (
+				5A8A007C104A4B1588489037 /* ClaudeCodeScreenSaver */,
+				6D8499E8747048D7A05AC909 /* ClaudeCodeScreenSaverTests */,
+				6BCC2DA4426C4FAF9868E30C /* Frameworks */,
+				BE4D6DDBD8DC4850A5A7D2D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65FBFB7359814D0388CFD6E1 /* ClaudeCodeScreenSaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F4004D40BDA458CB68752B7 /* Build configuration list for PBXNativeTarget "ClaudeCodeScreenSaver" */;
+			buildPhases = (
+				D49AA7E87F3340E0AA304031 /* Sources */,
+				4E91D9FD7DE5421AB013EBD3 /* Frameworks */,
+				1AEEBDBC010F4068B54D6546 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClaudeCodeScreenSaver;
+			productName = ClaudeCodeScreenSaver;
+			productReference = 0D334A12584D498D8FE1A373 /* ClaudeCodeScreenSaver.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
+		1478DCB57B5F40998E9C03A1 /* ClaudeCodeScreenSaverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8813899B423490898789E90 /* Build configuration list for PBXNativeTarget "ClaudeCodeScreenSaverTests" */;
+			buildPhases = (
+				14211AD7124D4549BA966E3B /* Sources */,
+				744A409A2640493ABD8D884E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E61E149F274944A0865D18AF /* PBXTargetDependency */,
+			);
+			name = ClaudeCodeScreenSaverTests;
+			productName = ClaudeCodeScreenSaverTests;
+			productReference = 74E1D964A90142438D33B846 /* ClaudeCodeScreenSaverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EB84E56A527D4D58988CC076 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					65FBFB7359814D0388CFD6E1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					1478DCB57B5F40998E9C03A1 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 65FBFB7359814D0388CFD6E1;
+					};
+				};
+			};
+			buildConfigurationList = A4A67399424B428D8E848012 /* Build configuration list for PBXProject "ClaudeCodeScreenSaver" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE1A378DBB7B4EEEB7DFA7FC /* MainGroup */;
+			productRefGroup = BE4D6DDBD8DC4850A5A7D2D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65FBFB7359814D0388CFD6E1 /* ClaudeCodeScreenSaver */,
+				1478DCB57B5F40998E9C03A1 /* ClaudeCodeScreenSaverTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1AEEBDBC010F4068B54D6546 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D49AA7E87F3340E0AA304031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4989ACD6ED345728B611E80 /* ClaudeCodeScreenSaverView.swift in Sources */,
+				EA11D54DA2824760ADE97CA8 /* NSColor+Hex.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14211AD7124D4549BA966E3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25163D85D151427DB3DD4FA5 /* NSColorHexTests.swift in Sources */,
+				F8E34D2F914042AF9288A0F8 /* NSColor+Hex.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E61E149F274944A0865D18AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FBFB7359814D0388CFD6E1 /* ClaudeCodeScreenSaver */;
+			targetProxy = EB84E56A527D4D58988CC076_65FBFB7359814D0388CFD6E1;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		EB84E56A527D4D58988CC076_65FBFB7359814D0388CFD6E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB84E56A527D4D58988CC076 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FBFB7359814D0388CFD6E1;
+			remoteInfo = ClaudeCodeScreenSaver;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		F32828A752254E3D83920CF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_LOOPS = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B3353CF4AB0347D1A9372528 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_LOOPS = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CEB13197638E4DF9AFB3E22B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClaudeCodeScreenSaver/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2389.ClaudeCodeScreenSaver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Debug;
+		};
+		C1A76962F70F4D6F91F939D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClaudeCodeScreenSaver/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2389.ClaudeCodeScreenSaver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
+		D765257F3CB8441B9F783F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2389.ClaudeCodeScreenSaverTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		DF2A9CE5B01044A698251680 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2389.ClaudeCodeScreenSaverTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A4A67399424B428D8E848012 /* Build configuration list for PBXProject "ClaudeCodeScreenSaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F32828A752254E3D83920CF3 /* Debug */,
+				B3353CF4AB0347D1A9372528 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0F4004D40BDA458CB68752B7 /* Build configuration list for PBXNativeTarget "ClaudeCodeScreenSaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB13197638E4DF9AFB3E22B /* Debug */,
+				C1A76962F70F4D6F91F939D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8813899B423490898789E90 /* Build configuration list for PBXNativeTarget "ClaudeCodeScreenSaverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D765257F3CB8441B9F783F89 /* Debug */,
+				DF2A9CE5B01044A698251680 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = EB84E56A527D4D58988CC076 /* Project object */;
+}
