@@ -38,7 +38,11 @@ final class TerminalRendererTests: XCTestCase {
         let lines = [builder.responseLine(text: "line 0"), builder.responseLine(text: "line 1"), builder.responseLine(text: "line 2")]
         renderer.update(lines: lines, cursorPosition: (row: 2, col: 5), deltaTime: 0.0)
 
-        let yFromTop = renderer.fontMetrics.lineHeight * 2
+        // Bottom-aligned: 3 lines in N-row pane, content starts at layer row (N-3)
+        // Cursor at content row 2 -> layer row (N-3)+2 = N-1 (bottom row)
+        let offset = renderer.fontMetrics.rows - 3
+        let layerRow = offset + 2
+        let yFromTop = CGFloat(layerRow) * renderer.fontMetrics.lineHeight
         let expectedY = 300.0 - yFromTop - renderer.fontMetrics.lineHeight
         XCTAssertEqual(renderer.cursorLayer.frame.origin.y, expectedY, accuracy: 1.0)
         let expectedX = renderer.fontMetrics.charAdvance * 5

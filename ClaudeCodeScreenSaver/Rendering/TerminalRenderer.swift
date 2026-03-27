@@ -13,6 +13,7 @@ class TerminalRenderer {
     private let theme: ThemeColors
 
     private var previousLines: [String] = []
+    private var previousLineMapping: [String] = []
     private var cursorBlinkAccumulator: TimeInterval = 0
     private var cursorVisible = true
     private let cursorBlinkHalfPeriod: TimeInterval = 0.530
@@ -58,26 +59,40 @@ class TerminalRenderer {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
-        // Update only changed lines (viewport shows bottom N lines)
+        // Bottom-align content: when fewer lines than rows, empty space at top, content at bottom.
+        // When content fills or exceeds the viewport, show the most recent (bottom) lines.
         let visibleLines = Array(lines.suffix(fontMetrics.rows))
+        let offset = fontMetrics.rows - visibleLines.count // empty rows at top
+
         for (index, lineLayer) in lineLayers.enumerated() {
-            if index < visibleLines.count {
-                let newLine = visibleLines[index].string
-                if index >= previousLines.count || previousLines[index] != newLine {
-                    lineLayer.string = visibleLines[index]
+            let contentIndex = index - offset
+            if contentIndex >= 0 && contentIndex < visibleLines.count {
+                let newLine = visibleLines[contentIndex].string
+                if contentIndex >= previousLines.count || (index < previousLineMapping.count && previousLineMapping[index] != newLine) {
+                    lineLayer.string = visibleLines[contentIndex]
                 }
             } else {
-                if index < previousLines.count && !previousLines[index].isEmpty {
+                if index < previousLineMapping.count && !previousLineMapping[index].isEmpty {
                     lineLayer.string = nil
                 }
             }
         }
+        // Track what each layer is showing for dirty detection
+        previousLineMapping = (0..<fontMetrics.rows).map { index in
+            let contentIndex = index - offset
+            if contentIndex >= 0 && contentIndex < visibleLines.count {
+                return visibleLines[contentIndex].string
+            }
+            return ""
+        }
         previousLines = visibleLines.map { $0.string }
 
-        // Update cursor position (flipped: row 0 at top)
-        let cursorRow = min(cursorPosition.row, fontMetrics.rows - 1)
+        // Update cursor position (bottom-aligned, flipped coords)
+        let visibleCount = visibleLines.count
+        let cursorRowInContent = min(cursorPosition.row, visibleCount - 1)
+        let cursorLayerRow = cursorRowInContent + offset // map to layer index
         let cursorX = CGFloat(cursorPosition.col) * fontMetrics.charAdvance
-        let cursorYFromTop = CGFloat(cursorRow) * fontMetrics.lineHeight
+        let cursorYFromTop = CGFloat(cursorLayerRow) * fontMetrics.lineHeight
         let cursorY = containerLayer.frame.height - cursorYFromTop - fontMetrics.lineHeight
         cursorLayer.frame = CGRect(x: cursorX, y: cursorY, width: fontMetrics.charAdvance, height: fontMetrics.lineHeight)
 
