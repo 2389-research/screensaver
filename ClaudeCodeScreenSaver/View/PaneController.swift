@@ -73,6 +73,8 @@ class PaneController {
             return stringBuilder.toolBlockBottom(width: width)
         case .thinking(let frameIndex):
             return stringBuilder.thinkingLine(frameIndex: frameIndex)
+        case .banner(let text):
+            return stringBuilder.bannerLine(text: text)
         case .empty:
             return stringBuilder.responseLine(text: "")
         }

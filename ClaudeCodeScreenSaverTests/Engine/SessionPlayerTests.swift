@@ -16,6 +16,7 @@ final class SessionPlayerTests: XCTestCase {
         case .toolResultContent(let text): return text
         case .toolBlockBottom: return ""
         case .thinking: return "Thinking..."
+        case .banner(let text): return text
         case .empty: return ""
         }
     }
@@ -191,7 +192,12 @@ final class SessionPlayerTests: XCTestCase {
         let player = SessionPlayer(events: [])
         XCTAssertFalse(player.isPlaying)
         player.advance(deltaTime: 1.0)
-        XCTAssertTrue(player.visibleLines.isEmpty)
+        // Even with no events, the ASCII banner is present
+        let hasBanner = player.visibleLines.contains(where: {
+            if case .banner = $0 { return true }
+            return false
+        })
+        XCTAssertTrue(hasBanner, "Should show 2389 ASCII banner")
     }
 
     func testToolResultEmitsTypedLines() {

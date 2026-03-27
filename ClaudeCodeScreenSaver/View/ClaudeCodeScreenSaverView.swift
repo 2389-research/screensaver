@@ -154,9 +154,16 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
         for (index, layout) in layouts.enumerated() {
             let session = randomSession()
+            // Each pane gets a different dark theme variant for visual variety
+            let paneTheme: ThemeColors
+            if preferences.colorScheme == .dark {
+                paneTheme = ThemeColors.darkVariants[index % ThemeColors.darkVariants.count]
+            } else {
+                paneTheme = ThemeColors.light
+            }
             let controller = PaneController(
                 layout: layout,
-                theme: theme,
+                theme: paneTheme,
                 events: session.events,
                 sessionFileName: session.fileName,
                 scale: displayScale
@@ -459,26 +466,29 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         CATransaction.setDisableActions(true)
 
         for (index, layout) in layouts.enumerated() {
-            // Reuse existing controller if possible, otherwise create new
+            let paneTheme: ThemeColors
+            if preferences.colorScheme == .dark {
+                paneTheme = ThemeColors.darkVariants[index % ThemeColors.darkVariants.count]
+            } else {
+                paneTheme = ThemeColors.light
+            }
             let controller: PaneController
             if index < oldControllers.count {
-                // Create a new controller but keep the session
                 let old = oldControllers[index]
                 controller = PaneController(
                     layout: layout,
-                    theme: theme,
+                    theme: paneTheme,
                     events: [],
                     sessionFileName: old.sessionFileName,
                     scale: displayScale
                 )
-                // Assign a fresh session since we can't transfer state
                 let session = randomSession()
                 controller.assignSession(events: session.events, fileName: session.fileName)
             } else {
                 let session = randomSession()
                 controller = PaneController(
                     layout: layout,
-                    theme: theme,
+                    theme: paneTheme,
                     events: session.events,
                     sessionFileName: session.fileName,
                     scale: displayScale

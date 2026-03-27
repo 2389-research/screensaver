@@ -54,6 +54,7 @@ final class SessionPlayer {
         case .toolResultContent(let text): col = text.count + 2
         case .toolBlockBottom(let width): col = width
         case .thinking: col = 13
+        case .banner(let text): col = text.count
         case .empty, .none: col = 0
         }
         return (row: max(row, 0), col: col)
@@ -99,8 +100,23 @@ final class SessionPlayer {
 
     // MARK: - Init
 
+    // Subtle ASCII banner shown before session content starts
+    private static let asciiBanner: [TerminalLine] = [
+        .empty,
+        .banner(text: "  ____  ____   ___   ___  "),
+        .banner(text: " |___ \\|___ \\ ( _ ) / _ \\ "),
+        .banner(text: "   __) | __) |/ _ \\| (_) |"),
+        .banner(text: "  / __/ / __/| (_) |\\__, |"),
+        .banner(text: " |_____|_____|\\___/   /_/ "),
+        .banner(text: ""),
+        .banner(text: "           2389.ai"),
+        .empty,
+    ]
+
     init(events: [SessionEvent]) {
         self.events = events
+        // Start with the ASCII banner
+        self.allLines = Self.asciiBanner
         if events.isEmpty {
             state = .finished
         }
