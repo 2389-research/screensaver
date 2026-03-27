@@ -218,6 +218,25 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
             layer.opacity = 0.5
         }
 
+        // Dev version overlay — top-right corner, visible red text
+        let devLabel = CATextLayer()
+        let devText = "  \(BuildInfo.versionString)  "
+        let devFont = NSFont(name: "Menlo", size: 11) ?? NSFont.monospacedSystemFont(ofSize: 11, weight: .regular)
+        devLabel.string = NSAttributedString(
+            string: devText,
+            attributes: [.font: devFont, .foregroundColor: NSColor.white]
+        )
+        devLabel.backgroundColor = NSColor(hex: "#cc3333").cgColor
+        devLabel.cornerRadius = 3
+        devLabel.contentsScale = displayScale
+        devLabel.alignmentMode = .center
+        devLabel.actions = ["contents": NSNull(), "string": NSNull()]
+        let devWidth: CGFloat = 300
+        let devHeight: CGFloat = 18
+        // Top-right: in CA coords, top = high Y value
+        devLabel.frame = CGRect(x: bounds.width - devWidth - 10, y: bounds.height - devHeight - 10, width: devWidth, height: devHeight)
+        root.addSublayer(devLabel)
+
         // Set evolution timer target
         evolutionTarget = TimeInterval.random(
             in: preferences.evolutionSpeedMin...preferences.evolutionSpeedMax
