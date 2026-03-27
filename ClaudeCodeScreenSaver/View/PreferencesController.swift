@@ -30,7 +30,7 @@ class PreferencesController: NSViewController {
         var y: CGFloat = 240
 
         // Title
-        let title = NSTextField(labelWithString: "Claude Code Screensaver")
+        let title = NSTextField(labelWithString: "Code Agent Screensaver")
         title.font = NSFont.boldSystemFont(ofSize: 14)
         title.frame = NSRect(x: 20, y: y, width: 360, height: 20)
         container.addSubview(title)

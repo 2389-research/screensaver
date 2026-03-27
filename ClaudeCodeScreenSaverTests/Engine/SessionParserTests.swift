@@ -1,5 +1,5 @@
 // ABOUTME: Tests for JSONL line-by-line parsing into SessionEvent values.
-// ABOUTME: Verifies correct parsing of all Claude Code event types and error resilience.
+// ABOUTME: Verifies correct parsing of all Code Agent event types and error resilience.
 
 import XCTest
 

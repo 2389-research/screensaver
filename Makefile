@@ -1,4 +1,4 @@
-# ABOUTME: Build, test, and install the Claude Code Screensaver.
+# ABOUTME: Build, test, and install the Code Agent Screensaver.
 # ABOUTME: Targets: build, test, install, uninstall, release, clean, hup.
 
 SCHEME = ClaudeCodeScreenSaver

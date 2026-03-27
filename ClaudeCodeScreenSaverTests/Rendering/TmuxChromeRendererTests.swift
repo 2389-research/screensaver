@@ -10,9 +10,9 @@ final class TmuxChromeRendererTests: XCTestCase {
         let chrome = TmuxChromeRenderer(sessionName: "rest-api", windowCount: 4, activeWindow: 0, lastWindow: 1)
         let left = chrome.statusBarLeftText()
         XCTAssertTrue(left.hasPrefix("[rest-api]"), "Should start with session name, got: \(left)")
-        XCTAssertTrue(left.contains("0:claude*"), "Active window should have * flag")
-        XCTAssertTrue(left.contains("1:claude-"), "Last window should have - flag")
-        XCTAssertTrue(left.contains("2:claude ") || left.contains("2:claude"), "Other windows should have no flag")
+        XCTAssertTrue(left.contains("0:agent*"), "Active window should have * flag")
+        XCTAssertTrue(left.contains("1:agent-"), "Last window should have - flag")
+        XCTAssertTrue(left.contains("2:agent ") || left.contains("2:agent"), "Other windows should have no flag")
     }
 
     func testStatusBarRightTextHasTimeAndDate() {
@@ -61,16 +61,16 @@ final class TmuxChromeRendererTests: XCTestCase {
         let chrome = TmuxChromeRenderer(sessionName: "test", windowCount: 6, activeWindow: 0, lastWindow: 1)
         let left = chrome.statusBarLeftText()
         // Should have windows 0-5
-        XCTAssertTrue(left.contains("5:claude"), "Should have window 5 for 6 panes")
-        XCTAssertFalse(left.contains("6:claude"), "Should NOT have window 6")
+        XCTAssertTrue(left.contains("5:agent"), "Should have window 5 for 6 panes")
+        XCTAssertFalse(left.contains("6:agent"), "Should NOT have window 6")
     }
 
     func testActiveWindowFlag() {
         let chrome = TmuxChromeRenderer(sessionName: "test", windowCount: 4, activeWindow: 2, lastWindow: 0)
         let left = chrome.statusBarLeftText()
-        XCTAssertTrue(left.contains("2:claude*"), "Window 2 should be active")
-        XCTAssertTrue(left.contains("0:claude-"), "Window 0 should be last-active")
-        XCTAssertFalse(left.contains("1:claude*") || left.contains("1:claude-"), "Window 1 should have no flag")
+        XCTAssertTrue(left.contains("2:agent*"), "Window 2 should be active")
+        XCTAssertTrue(left.contains("0:agent-"), "Window 0 should be last-active")
+        XCTAssertFalse(left.contains("1:agent*") || left.contains("1:agent-"), "Window 1 should have no flag")
     }
 
     func testCreateStatusBarLayer() {
@@ -91,7 +91,7 @@ final class TmuxChromeRendererTests: XCTestCase {
         XCTAssertEqual(chrome.activeWindow, 2, "Active window should update to 2")
         XCTAssertEqual(chrome.lastWindow, 0, "Last window should be previous active (0)")
         let left = chrome.statusBarLeftText()
-        XCTAssertTrue(left.contains("2:claude*"), "Window 2 should now be active")
-        XCTAssertTrue(left.contains("0:claude-"), "Window 0 should now be last-active")
+        XCTAssertTrue(left.contains("2:agent*"), "Window 2 should now be active")
+        XCTAssertTrue(left.contains("0:agent-"), "Window 0 should now be last-active")
     }
 }

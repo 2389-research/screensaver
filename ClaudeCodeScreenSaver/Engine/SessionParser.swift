@@ -1,4 +1,4 @@
-// ABOUTME: Parses Claude Code JSONL session files line-by-line into SessionEvent values.
+// ABOUTME: Parses Code Agent JSONL session files line-by-line into SessionEvent values.
 // ABOUTME: Handles all known event types, skips unknown types and malformed lines gracefully.
 
 import Foundation

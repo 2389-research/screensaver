@@ -1,4 +1,4 @@
-// ABOUTME: Parsed events from Claude Code JSONL session files.
+// ABOUTME: Parsed events from Code Agent JSONL session files.
 // ABOUTME: Represents all displayable event types the renderer understands.
 
 import Foundation

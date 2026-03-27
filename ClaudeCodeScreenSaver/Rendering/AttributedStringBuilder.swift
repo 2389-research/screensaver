@@ -1,4 +1,4 @@
-// ABOUTME: Factory for building NSAttributedString instances for each Claude Code UI element.
+// ABOUTME: Factory for building NSAttributedString instances for each Code Agent UI element.
 // ABOUTME: Handles prompt chevron, response text, tool blocks with box-drawing chars, and spinner.
 
 import AppKit

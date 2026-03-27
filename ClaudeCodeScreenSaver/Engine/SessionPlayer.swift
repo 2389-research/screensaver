@@ -139,7 +139,7 @@ final class SessionPlayer {
         "feat/websocket", "fix/timeout", "chore/deps", "feat/search",
     ]
 
-    // Generate a status line matching real Claude Code format
+    // Generate a status line matching real Code Agent format
     private static func generateStatusLine() -> [TerminalLine] {
         let model = modelNames.randomElement() ?? "claude-opus-4.6"
         let project = projectNames.randomElement() ?? "project"

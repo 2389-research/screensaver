@@ -330,7 +330,7 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         if preferencesWindow == nil {
             let controller = PreferencesController(bundleIdentifier: Self.bundleID)
             let window = NSWindow(contentViewController: controller)
-            window.title = "Claude Code Screensaver"
+            window.title = "Code Agent Screensaver"
             preferencesWindow = window
         }
         return preferencesWindow

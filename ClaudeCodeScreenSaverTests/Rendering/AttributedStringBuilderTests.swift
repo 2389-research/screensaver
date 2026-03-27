@@ -1,4 +1,4 @@
-// ABOUTME: Tests for NSAttributedString generation for each Claude Code UI element.
+// ABOUTME: Tests for NSAttributedString generation for each Code Agent UI element.
 // ABOUTME: Verifies colors, bold attributes, and correct character content.
 
 import XCTest

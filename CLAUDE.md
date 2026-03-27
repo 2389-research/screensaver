@@ -1,4 +1,4 @@
-# Claude Code Screensaver — Project Instructions
+# Code Agent Screensaver — Project Instructions
 
 ## Build & Test
 

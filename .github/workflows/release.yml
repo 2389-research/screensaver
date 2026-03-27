@@ -48,7 +48,7 @@ jobs:
           files: artifacts/ClaudeCodeScreenSaver.saver.zip
           generate_release_notes: true
           body: |
-            ## Claude Code Screensaver ${{ github.ref_name }}
+            ## Code Agent Screensaver ${{ github.ref_name }}
 
             ### Install
             1. Download `ClaudeCodeScreenSaver.saver.zip` below

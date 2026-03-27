@@ -24,7 +24,7 @@ class TmuxChromeRenderer {
             if i == activeWindow { flag = "*" }
             else if i == lastWindow { flag = "-" }
             else { flag = "" }
-            parts += "\(i):claude\(flag)"
+            parts += "\(i):agent\(flag)"
             if i < windowCount - 1 { parts += "  " }
         }
         return parts
