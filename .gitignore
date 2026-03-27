@@ -1,0 +1,19 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata
+*.xcworkspace
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+
+# macOS
+.DS_Store
+*.saver
+
+# Superpowers brainstorm artifacts
+.superpowers/
+
+# CocoaPods (if ever used)
+Pods/
