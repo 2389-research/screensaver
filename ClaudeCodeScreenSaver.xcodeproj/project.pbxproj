@@ -101,6 +101,8 @@
 		BB0000000000003A /* PreferencesController.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
 		AA0000000000003D /* TerminalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
 		BB0000000000003D /* TerminalLine.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
+		AA0000000000003E /* BuildInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003E /* BuildInfo.swift */; };
+		BB0000000000003E /* BuildInfo.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000003E /* BuildInfo.swift */; };
 		EE00000000000002 /* everything-goes-wrong.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = EE00000000000001 /* everything-goes-wrong.jsonl */; };
 		EE00000000000003 /* everything-goes-wrong.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = EE00000000000001 /* everything-goes-wrong.jsonl */; };
 /* End PBXBuildFile section */
@@ -164,6 +166,7 @@
 		AF0000000000003B /* StartupStaggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupStaggerTests.swift; sourceTree = "<group>"; };
 		AF0000000000003C /* BatteryModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryModeTests.swift; sourceTree = "<group>"; };
 		AF0000000000003D /* TerminalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalLine.swift; sourceTree = "<group>"; };
+		AF0000000000003E /* BuildInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildInfo.swift; sourceTree = "<group>"; };
 		EE00000000000001 /* everything-goes-wrong.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "everything-goes-wrong.jsonl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +241,7 @@
 			children = (
 				03AC5A1DC5FC4D748C32C3E2 /* NSColor+Hex.swift */,
 				AF00000000000035 /* PreferencesStorage.swift */,
+				AF0000000000003E /* BuildInfo.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -546,6 +550,7 @@
 				AA00000000000036 /* PreferencesController.swift in Sources */,
 				AA00000000000038 /* PaneController.swift in Sources */,
 				AA0000000000003D /* TerminalLine.swift in Sources */,
+				AA0000000000003E /* BuildInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +591,7 @@
 				AA0000000000003B /* StartupStaggerTests.swift in Sources */,
 				AA0000000000003C /* BatteryModeTests.swift in Sources */,
 				BB0000000000003D /* TerminalLine.swift in Sources (test) */,
+				BB0000000000003E /* BuildInfo.swift in Sources (test) */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
