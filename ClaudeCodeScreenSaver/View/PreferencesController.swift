@@ -14,7 +14,6 @@ class PreferencesController: NSViewController {
     private let densityLabel = NSTextField(labelWithString: "")
     private let evolutionSlider = NSSlider()
     private let evolutionLabel = NSTextField(labelWithString: "")
-    private let oledCheckbox = NSButton(checkboxWithTitle: "OLED-safe mode", target: nil, action: nil)
     private let okButton = NSButton(title: "OK", target: nil, action: nil)
 
     init(bundleIdentifier: String) {
@@ -83,14 +82,6 @@ class PreferencesController: NSViewController {
         container.addSubview(evolutionLabel)
         y -= 40
 
-        // OLED safe mode
-        oledCheckbox.state = preferences.oledSafeMode ? .on : .off
-        oledCheckbox.frame = NSRect(x: 20, y: y, width: 360, height: 20)
-        oledCheckbox.target = self
-        oledCheckbox.action = #selector(oledChanged)
-        container.addSubview(oledCheckbox)
-        y -= 50
-
         // OK button
         okButton.frame = NSRect(x: 300, y: 10, width: 80, height: 30)
         okButton.bezelStyle = .rounded
@@ -117,11 +108,6 @@ class PreferencesController: NSViewController {
         preferences.evolutionSpeedMin = evolutionSlider.doubleValue
         preferences.evolutionSpeedMax = evolutionSlider.doubleValue + 30
         evolutionLabel.stringValue = "\(Int(evolutionSlider.doubleValue))s"
-        save()
-    }
-
-    @objc private func oledChanged() {
-        preferences.oledSafeMode = oledCheckbox.state == .on
         save()
     }
 

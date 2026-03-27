@@ -10,5 +10,4 @@ struct Preferences: Codable, Equatable {
     var paneDensityMax: Int = 8
     var evolutionSpeedMin: TimeInterval = 60
     var evolutionSpeedMax: TimeInterval = 90
-    var oledSafeMode: Bool = false
 }

@@ -10,14 +10,12 @@ final class PreferencesStorageTests: XCTestCase {
         var prefs = Preferences()
         prefs.colorScheme = .light
         prefs.paneDensityMax = 10
-        prefs.oledSafeMode = true
 
         PreferencesStorage.save(prefs, bundleIdentifier: testBundleID)
         let loaded = PreferencesStorage.load(bundleIdentifier: testBundleID)
 
         XCTAssertEqual(loaded.colorScheme, .light)
         XCTAssertEqual(loaded.paneDensityMax, 10)
-        XCTAssertTrue(loaded.oledSafeMode)
     }
 
     func testLoadFromEmptyReturnsDefaults() {

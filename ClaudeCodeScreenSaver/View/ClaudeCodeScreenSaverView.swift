@@ -205,12 +205,10 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         // Render border segments
         renderBorders(layouts: layouts, into: root)
 
-        // Apply OLED-safe dimming
-        if preferences.oledSafeMode {
-            statusBarLayer?.opacity = 0.5
-            for layer in borderLayers {
-                layer.opacity = 0.5
-            }
+        // OLED-safe: dim static chrome to prevent burn-in
+        statusBarLayer?.opacity = 0.5
+        for layer in borderLayers {
+            layer.opacity = 0.5
         }
 
         // Set evolution timer target
@@ -270,13 +268,11 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         // Update status bar time
         updateStatusBarTime()
 
-        // OLED pixel shift
-        if preferences.oledSafeMode {
-            oledShiftTimer += deltaTime
-            if oledShiftTimer >= Self.oledPixelShiftInterval {
-                oledShiftTimer = 0
-                applyOLEDPixelShift()
-            }
+        // OLED-safe: periodic pixel shift to prevent burn-in
+        oledShiftTimer += deltaTime
+        if oledShiftTimer >= Self.oledPixelShiftInterval {
+            oledShiftTimer = 0
+            applyOLEDPixelShift()
         }
     }
 
@@ -499,10 +495,9 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
         // Re-render borders
         renderBorders(layouts: layouts, into: root)
 
-        if preferences.oledSafeMode {
-            for layer in borderLayers {
-                layer.opacity = 0.5
-            }
+        // OLED-safe: dim border chrome to prevent burn-in
+        for layer in borderLayers {
+            layer.opacity = 0.5
         }
     }
 
