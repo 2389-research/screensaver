@@ -55,6 +55,8 @@ final class SessionPlayer {
         case .toolBlockBottom(let width): col = width
         case .thinking: col = 13
         case .banner(let text): col = text.count
+        case .warning(let text): col = text.count
+        case .statusInfo(let text): col = text.count
         case .empty, .none: col = 0
         }
         return (row: max(row, 0), col: col)
@@ -100,23 +102,48 @@ final class SessionPlayer {
 
     // MARK: - Init
 
-    // Subtle ASCII banner shown before session content starts
+    // Insane model names for the status line
+    private static let modelNames = [
+        "claude-opus-9-20261225", "claude-sonnet-7.3-turbo", "claude-haiku-5-ultra",
+        "gpt-5.4-preview-2026", "gemini-2.5-flash-thinking", "claude-opus-4.6-1m",
+        "deepseek-r3-0401", "claude-mega-10-exp", "gpt-6-mini-preview",
+        "llama-5-405b-instruct", "claude-sonnet-4.6-fast", "mistral-large-3-2026",
+        "claude-opus-4.6[1m]", "gpt-5.4-0125", "claude-3.7-sonnet-thinking",
+    ]
+
+    // Block-font ASCII banner shown before session content starts
     private static let asciiBanner: [TerminalLine] = [
         .empty,
-        .banner(text: "  ____  ____   ___   ___  "),
-        .banner(text: " |___ \\|___ \\ ( _ ) / _ \\ "),
-        .banner(text: "   __) | __) |/ _ \\| (_) |"),
-        .banner(text: "  / __/ / __/| (_) |\\__, |"),
-        .banner(text: " |_____|_____|\\___/   /_/ "),
-        .banner(text: ""),
-        .banner(text: "           2389.ai"),
+        .banner(text: "\u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: "       \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}      \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: "       \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}      \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: " \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: "\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}             \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}      \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: "\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}             \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}      \u{2591}\u{2592}\u{2593}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .banner(text: "\u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}\u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591} \u{2591}\u{2592}\u{2593}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2593}\u{2592}\u{2591}"),
+        .empty,
+        .banner(text: "                      2389.ai"),
         .empty,
     ]
 
+    // Generate a fake Claude Code status line
+    private static func generateStatusLine() -> [TerminalLine] {
+        let model = modelNames.randomElement() ?? "claude-opus-4.6"
+        let tokens = Int.random(in: 12_000...847_000)
+        let contextPct = Int.random(in: 15...92)
+        let minutes = Int.random(in: 2...45)
+        let seconds = Int.random(in: 0...59)
+        return [
+            .statusInfo(text: "\(model)  \(tokens.formatted()) tokens  \(contextPct)% context  \(minutes)m \(seconds)s"),
+            .warning(text: "  bypass permissions on"),
+            .empty,
+        ]
+    }
+
     init(events: [SessionEvent]) {
         self.events = events
-        // Start with the ASCII banner
-        self.allLines = Self.asciiBanner
+        // Start with ASCII banner + status line
+        self.allLines = Self.asciiBanner + Self.generateStatusLine()
         if events.isEmpty {
             state = .finished
         }

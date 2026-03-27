@@ -17,6 +17,8 @@ final class SessionPlayerTests: XCTestCase {
         case .toolBlockBottom: return ""
         case .thinking: return "Thinking..."
         case .banner(let text): return text
+        case .warning(let text): return text
+        case .statusInfo(let text): return text
         case .empty: return ""
         }
     }

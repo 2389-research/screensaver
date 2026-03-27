@@ -75,6 +75,10 @@ class PaneController {
             return stringBuilder.thinkingLine(frameIndex: frameIndex)
         case .banner(let text):
             return stringBuilder.bannerLine(text: text)
+        case .warning(let text):
+            return stringBuilder.warningLine(text: text)
+        case .statusInfo(let text):
+            return stringBuilder.statusInfoLine(text: text)
         case .empty:
             return stringBuilder.responseLine(text: "")
         }

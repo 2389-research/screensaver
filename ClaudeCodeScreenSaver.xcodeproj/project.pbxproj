@@ -101,6 +101,8 @@
 		BB0000000000003A /* PreferencesController.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF00000000000036 /* PreferencesController.swift */; };
 		AA0000000000003D /* TerminalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
 		BB0000000000003D /* TerminalLine.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = AF0000000000003D /* TerminalLine.swift */; };
+		EE00000000000002 /* everything-goes-wrong.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = EE00000000000001 /* everything-goes-wrong.jsonl */; };
+		EE00000000000003 /* everything-goes-wrong.jsonl in Resources */ = {isa = PBXBuildFile; fileRef = EE00000000000001 /* everything-goes-wrong.jsonl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +164,7 @@
 		AF0000000000003B /* StartupStaggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupStaggerTests.swift; sourceTree = "<group>"; };
 		AF0000000000003C /* BatteryModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryModeTests.swift; sourceTree = "<group>"; };
 		AF0000000000003D /* TerminalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalLine.swift; sourceTree = "<group>"; };
+		EE00000000000001 /* everything-goes-wrong.jsonl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "everything-goes-wrong.jsonl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +336,7 @@
 				AF0000000000002E /* rust-cli-tool.jsonl */,
 				AF0000000000002F /* search-feature.jsonl */,
 				AF00000000000030 /* setup-cicd.jsonl */,
+				EE00000000000001 /* everything-goes-wrong.jsonl */,
 				AF00000000000031 /* websocket-server.jsonl */,
 				AF00000000000032 /* write-docs.jsonl */,
 				AF00000000000033 /* write-python-tests.jsonl */,
@@ -481,6 +485,7 @@
 				AA0000000000002E /* rust-cli-tool.jsonl in Resources */,
 				AA0000000000002F /* search-feature.jsonl in Resources */,
 				AA00000000000030 /* setup-cicd.jsonl in Resources */,
+				EE00000000000002 /* everything-goes-wrong.jsonl in Resources */,
 				AA00000000000031 /* websocket-server.jsonl in Resources */,
 				AA00000000000032 /* write-docs.jsonl in Resources */,
 				AA00000000000033 /* write-python-tests.jsonl in Resources */,
@@ -509,6 +514,7 @@
 				CC00000000000010 /* rust-cli-tool.jsonl in Resources (test) */,
 				CC00000000000011 /* search-feature.jsonl in Resources (test) */,
 				CC00000000000012 /* setup-cicd.jsonl in Resources (test) */,
+				EE00000000000003 /* everything-goes-wrong.jsonl in Resources (test) */,
 				CC00000000000013 /* websocket-server.jsonl in Resources (test) */,
 				CC00000000000014 /* write-docs.jsonl in Resources (test) */,
 				CC00000000000015 /* write-python-tests.jsonl in Resources (test) */,

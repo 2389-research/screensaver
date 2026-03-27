@@ -11,5 +11,7 @@ enum TerminalLine: Equatable {
     case toolBlockBottom(width: Int)
     case thinking(frameIndex: Int)
     case banner(text: String)
+    case warning(text: String)
+    case statusInfo(text: String)
     case empty
 }
