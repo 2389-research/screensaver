@@ -6,25 +6,25 @@ A native macOS screensaver that displays a grid of simulated Claude Code termina
 
 A full-screen tmux session with 5-8 panes, each showing a Claude Code instance reading files, writing code, running tests, and thinking through problems. Text-character borders with proper junction characters. A status bar at the bottom with session name and timestamp. Panes slowly split, close, and resize over time.
 
-## Requirements
+## Install (Download)
 
-- macOS 14.0+ (Sonoma)
-- Xcode 15.0+ (for building)
-- Swift 5.9+
+1. Download `ClaudeCodeScreenSaver.saver.zip` from [Releases](../../releases)
+2. Unzip it
+3. Move `ClaudeCodeScreenSaver.saver` to `~/Library/Screen Savers/` (important — do this *before* double-clicking to avoid App Translocation issues)
+4. Open **System Settings > Screen Saver** and select it
 
-## Build
+## Install (Build from Source)
+
+Requirements: macOS 14.0+ (Sonoma), Xcode 15.0+
 
 ```bash
-xcodebuild build -scheme ClaudeCodeScreenSaver -configuration Release -destination 'platform=macOS'
+make install
 ```
 
-The `.saver` bundle is produced in `~/Library/Developer/Xcode/DerivedData/ClaudeCodeScreenSaver-*/Build/Products/Release/`.
-
-## Install
-
-**Important:** Move the `.saver` file to `~/Library/Screen Savers/` *before* double-clicking it. This avoids App Translocation issues that prevent preferences from persisting.
+Or manually:
 
 ```bash
+make build
 cp -R ~/Library/Developer/Xcode/DerivedData/ClaudeCodeScreenSaver-*/Build/Products/Release/ClaudeCodeScreenSaver.saver ~/Library/Screen\ Savers/
 ```
 
@@ -49,7 +49,7 @@ When "Use Real Sessions" is enabled, the screensaver replays content from your `
 ## Testing
 
 ```bash
-xcodebuild test -scheme ClaudeCodeScreenSaver -destination 'platform=macOS'
+make test
 ```
 
 ## Architecture

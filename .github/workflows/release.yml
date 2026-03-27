@@ -1,0 +1,60 @@
+# ABOUTME: Builds and publishes the screensaver as a GitHub Release on tag push.
+# ABOUTME: Triggered by tags matching v*.*.* (e.g. v1.0.0). Uploads .saver.zip artifact.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+
+      - name: Build Release
+        run: |
+          xcodebuild build \
+            -scheme ClaudeCodeScreenSaver \
+            -configuration Release \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData
+
+      - name: Run Tests
+        run: |
+          xcodebuild test \
+            -scheme ClaudeCodeScreenSaver \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData
+
+      - name: Package .saver bundle
+        run: |
+          SAVER_PATH=$(find ./DerivedData -name "ClaudeCodeScreenSaver.saver" -path "*/Release/*" | head -1)
+          mkdir -p artifacts
+          cp -R "$SAVER_PATH" artifacts/ClaudeCodeScreenSaver.saver
+          cd artifacts && zip -r ClaudeCodeScreenSaver.saver.zip ClaudeCodeScreenSaver.saver
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/ClaudeCodeScreenSaver.saver.zip
+          generate_release_notes: true
+          body: |
+            ## Claude Code Screensaver ${{ github.ref_name }}
+
+            ### Install
+            1. Download `ClaudeCodeScreenSaver.saver.zip` below
+            2. Unzip it
+            3. Move `ClaudeCodeScreenSaver.saver` to `~/Library/Screen Savers/`
+            4. Double-click to install, or open **System Settings > Screen Saver**
+
+            ### Requirements
+            - macOS 14.0+ (Sonoma)
