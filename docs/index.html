@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Screensaver — by 2389</title>
+    <meta name="description" content="A native macOS screensaver that simulates a wall of Claude Code instances hacking away in a tmux session.">
+    <meta property="og:title" content="Claude Code Screensaver">
+    <meta property="og:description" content="Your Mac, pretending to be a room full of AI engineers.">
+    <meta property="og:type" content="website">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0d0d0d;
+            --surface: #1e1e2e;
+            --border: #333;
+            --text: #e0e0e0;
+            --dim: #888;
+            --cyan: #00d7ff;
+            --orange: #d4a574;
+            --blue: #7aa2f7;
+            --green: #73daca;
+            --red: #f7768e;
+            --purple: #bd93f9;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'Menlo', 'SF Mono', monospace;
+            font-size: 11px;
+            color: var(--dim);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--dim);
+            max-width: 560px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: #000;
+        }
+        .btn-primary:hover { background: #33e0ff; transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--dim); transform: translateY(-1px); }
+
+        /* Screenshot */
+        .screenshot-wrap {
+            margin: 40px 0 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            position: relative;
+        }
+
+        .screenshot-wrap img, .screenshot-wrap video {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-placeholder {
+            padding: 120px 40px;
+            text-align: center;
+            font-family: 'Menlo', monospace;
+            color: var(--dim);
+            font-size: 14px;
+        }
+
+        .screenshot-placeholder .ascii {
+            color: var(--border);
+            font-size: 11px;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        /* Features */
+        .features {
+            padding: 40px 0 80px;
+        }
+
+        .features h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px;
+        }
+
+        .feature-card .icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--dim);
+            line-height: 1.5;
+        }
+
+        .feature-card code {
+            font-family: 'Menlo', monospace;
+            font-size: 12px;
+            background: rgba(255,255,255,0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Themes showcase */
+        .themes {
+            padding: 40px 0 80px;
+        }
+
+        .themes h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .themes p {
+            text-align: center;
+            color: var(--dim);
+            margin-bottom: 32px;
+            font-size: 15px;
+        }
+
+        .theme-strip {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .theme-swatch {
+            width: 120px;
+            height: 72px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 8px;
+            font-family: 'Menlo', monospace;
+            font-size: 9px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-swatch .name {
+            color: rgba(255,255,255,0.6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-swatch .sample {
+            font-size: 8px;
+            opacity: 0.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Install */
+        .install {
+            padding: 40px 0 80px;
+        }
+
+        .install h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .step-num {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .step h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .step p {
+            font-size: 13px;
+            color: var(--dim);
+        }
+
+        /* Code block */
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            font-family: 'Menlo', monospace;
+            font-size: 13px;
+            color: var(--text);
+            overflow-x: auto;
+            margin: 24px auto;
+            max-width: 600px;
+        }
+
+        .code-block .comment { color: var(--dim); }
+        .code-block .cmd { color: var(--green); }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--dim);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        .footer-ascii {
+            font-family: 'Menlo', monospace;
+            font-size: 9px;
+            color: var(--border);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 17px; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">macOS 14+ &middot; Native Swift &middot; Open Source</div>
+        <h1>Claude Code Screensaver</h1>
+        <p>Your Mac, pretending to be a room full of AI engineers. A native screensaver that simulates a giant tmux grid of Claude Code instances all hacking away.</p>
+        <div class="cta-row">
+            <a href="https://github.com/2389-research/screensaver/releases/latest" class="btn btn-primary">
+                Download .saver
+            </a>
+            <a href="https://github.com/2389-research/screensaver" class="btn btn-secondary">
+                View on GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Screenshot -->
+    <div class="screenshot-wrap">
+        <!-- Replace with actual screenshot or GIF -->
+        <div class="screenshot-placeholder">
+<pre class="ascii">
+  ┌─────────────────────────────┬──────────────────────┐
+  │ ❯ build a REST API          │ ❯ fix the auth bug   │
+  │                             │                      │
+  │ I'll help you build a REST  │ ╭─ Read ────────────╮│
+  │ API with Express.           │ │ src/auth/login.ts  ││
+  │                             │ ╰────────────────────╯│
+  │ ╭─ Read ─────────────────╮  │                      │
+  │ │ package.json           │  │ Found the bug: JWT   │
+  │ ╰────────────────────────╯  │ secret compared with │
+  ├─────────────────────────────┤ === instead of       │
+  │ ❯ write unit tests          │ constant-time check. │
+  │                             ├──────────────────────┤
+  │ ⠋ Thinking...              │ ❯ optimize SQL query  │
+  │                             │                      │
+  │                             │ ╭─ Bash ────────────╮│
+  │                             │ │ EXPLAIN ANALYZE   ││
+  │                             │ ╰────────────────────╯│
+  └─────────────────────────────┴──────────────────────┘
+  [build-rest-api] 0:claude*  1:claude-  2:claude  3:claude        09:15 27-Mar-2026
+</pre>
+            <p style="margin-top: 16px; color: #555;">Screenshot placeholder — add docs/assets/screenshot.png or demo.gif</p>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="icon" style="color: var(--cyan);">&#9638;</span>
+                <h3>Real tmux Chrome</h3>
+                <p>Text-character borders with proper junction characters (<code>┼ ├ ┤ ┬ ┴</code>), status bar with session name, window list, and live clock.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon" style="color: var(--orange);">&#10095;</span>
+                <h3>Claude Code TUI</h3>
+                <p>Faithful reproduction of the Claude Code interface: <code>❯</code> prompt, thinking spinner, tool call blocks with rounded corners, streaming responses.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon" style="color: var(--purple);">&#9618;</span>
+                <h3>6 Dark Themes</h3>
+                <p>Each pane gets a different color scheme &mdash; Catppuccin Mocha, Tokyo Night, Dracula, Nord, Gruvbox, Solarized. No two panes look the same.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon" style="color: var(--green);">&#9200;</span>
+                <h3>Realistic Timing</h3>
+                <p>Delta-time animation at human-like speeds. Prompts type at 40 chars/sec, responses at 60, tool calls at 200. Thinking spinners cycle at 100ms.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon" style="color: var(--blue);">&#9638;</span>
+                <h3>Living Layout</h3>
+                <p>Panes slowly split, close, and resize over time &mdash; like a developer managing their tmux session. Staggered startup sequence brings panes to life one by one.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon" style="color: var(--red);">&#9889;</span>
+                <h3>21 Bundled Sessions</h3>
+                <p>From building REST APIs to debugging memory leaks to the infamous "everything goes wrong" deploy disaster. Realistic tool usage patterns throughout.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="themes">
+        <h2>Color Themes</h2>
+        <p>Each pane randomly selects from six carefully chosen dark palettes.</p>
+        <div class="theme-strip">
+            <div class="theme-swatch" style="background: #1e1e2e;">
+                <span class="sample" style="color: #d4a574;">❯ build api</span>
+                <span class="name">Catppuccin</span>
+            </div>
+            <div class="theme-swatch" style="background: #1a1b26;">
+                <span class="sample" style="color: #e0af68;">❯ fix bug</span>
+                <span class="name">Tokyo Night</span>
+            </div>
+            <div class="theme-swatch" style="background: #282a36;">
+                <span class="sample" style="color: #ffb86c;">❯ add auth</span>
+                <span class="name">Dracula</span>
+            </div>
+            <div class="theme-swatch" style="background: #2e3440;">
+                <span class="sample" style="color: #d08770;">❯ deploy</span>
+                <span class="name">Nord</span>
+            </div>
+            <div class="theme-swatch" style="background: #282828;">
+                <span class="sample" style="color: #fe8019;">❯ test</span>
+                <span class="name">Gruvbox</span>
+            </div>
+            <div class="theme-swatch" style="background: #002b36;">
+                <span class="sample" style="color: #cb4b16;">❯ search</span>
+                <span class="name">Solarized</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Install -->
+    <section class="install">
+        <h2>Install</h2>
+        <div class="install-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Download</h3>
+                <p>Grab the latest <code>.saver.zip</code> from GitHub Releases</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Unzip &amp; Move</h3>
+                <p>Move <code>.saver</code> to <code>~/Library/Screen Savers/</code></p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Activate</h3>
+                <p>System Settings &rarr; Screen Saver &rarr; select it</p>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <span class="comment"># Or build from source:</span><br>
+            <span class="cmd">make install</span>
+        </div>
+    </section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-ascii">
+░▒▓██▓▒░░▒▓██▓▒░ ░▒▓██▓▒░ ░▒▓██▓▒░
+        </div>
+        <p>Built by <a href="https://2389.ai">2389</a> &middot; <a href="https://github.com/2389-research/screensaver">GitHub</a> &middot; MIT License</p>
+    </div>
+</footer>
+
+</body>
+</html>
