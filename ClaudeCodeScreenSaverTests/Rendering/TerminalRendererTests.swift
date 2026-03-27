@@ -38,7 +38,8 @@ final class TerminalRendererTests: XCTestCase {
         let lines = [builder.responseLine(text: "line 0"), builder.responseLine(text: "line 1"), builder.responseLine(text: "line 2")]
         renderer.update(lines: lines, cursorPosition: (row: 2, col: 5), deltaTime: 0.0)
 
-        let expectedY = renderer.fontMetrics.lineHeight * 2
+        let yFromTop = renderer.fontMetrics.lineHeight * 2
+        let expectedY = 300.0 - yFromTop - renderer.fontMetrics.lineHeight
         XCTAssertEqual(renderer.cursorLayer.frame.origin.y, expectedY, accuracy: 1.0)
         let expectedX = renderer.fontMetrics.charAdvance * 5
         XCTAssertEqual(renderer.cursorLayer.frame.origin.x, expectedX, accuracy: 1.0)
@@ -90,10 +91,12 @@ final class TerminalRendererTests: XCTestCase {
         }
     }
 
-    func testLineLayersPositionedCorrectly() {
+    func testLineLayersPositionedTopDown() {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
+        // Row 0 should be at top (highest Y in CA coords), row N at bottom (lowest Y)
         for (index, layer) in renderer.lineLayers.enumerated() {
-            let expectedY = CGFloat(index) * renderer.fontMetrics.lineHeight
+            let yFromTop = CGFloat(index) * renderer.fontMetrics.lineHeight
+            let expectedY = 300.0 - yFromTop - renderer.fontMetrics.lineHeight
             XCTAssertEqual(layer.frame.origin.y, expectedY, accuracy: 0.1,
                            "Line layer \(index) should be at y=\(expectedY)")
             XCTAssertEqual(layer.frame.origin.x, 0, accuracy: 0.1)
@@ -149,7 +152,8 @@ final class TerminalRendererTests: XCTestCase {
         renderer.update(lines: lines, cursorPosition: (row: 9999, col: 0), deltaTime: 0.0)
 
         let maxRow = renderer.fontMetrics.rows - 1
-        let expectedY = CGFloat(maxRow) * renderer.fontMetrics.lineHeight
+        let yFromTop = CGFloat(maxRow) * renderer.fontMetrics.lineHeight
+        let expectedY = renderer.containerLayer.frame.height - yFromTop - renderer.fontMetrics.lineHeight
         XCTAssertEqual(renderer.cursorLayer.frame.origin.y, expectedY, accuracy: 1.0)
     }
 }

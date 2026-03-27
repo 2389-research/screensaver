@@ -24,12 +24,14 @@ class TerminalRenderer {
         containerLayer.frame = frame
         containerLayer.backgroundColor = NSColor(hex: theme.background).cgColor
 
-        // Create per-line text layers
+        // Create per-line text layers (row 0 at top, growing downward like a terminal)
         for row in 0..<fontMetrics.rows {
             let lineLayer = CATextLayer()
+            let yFromTop = CGFloat(row) * fontMetrics.lineHeight
+            let yFlipped = frame.height - yFromTop - fontMetrics.lineHeight
             lineLayer.frame = CGRect(
                 x: 0,
-                y: CGFloat(row) * fontMetrics.lineHeight,
+                y: yFlipped,
                 width: frame.width,
                 height: fontMetrics.lineHeight
             )
@@ -72,10 +74,11 @@ class TerminalRenderer {
         }
         previousLines = visibleLines.map { $0.string }
 
-        // Update cursor position
+        // Update cursor position (flipped: row 0 at top)
         let cursorRow = min(cursorPosition.row, fontMetrics.rows - 1)
         let cursorX = CGFloat(cursorPosition.col) * fontMetrics.charAdvance
-        let cursorY = CGFloat(cursorRow) * fontMetrics.lineHeight
+        let cursorYFromTop = CGFloat(cursorRow) * fontMetrics.lineHeight
+        let cursorY = containerLayer.frame.height - cursorYFromTop - fontMetrics.lineHeight
         cursorLayer.frame = CGRect(x: cursorX, y: cursorY, width: fontMetrics.charAdvance, height: fontMetrics.lineHeight)
 
         // Cursor blink
