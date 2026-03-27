@@ -24,6 +24,7 @@ class PaneController {
         self.renderer = TerminalRenderer(frame: layout.frame, theme: theme, scale: scale)
         self.player = SessionPlayer(events: events)
         self.player.visibleRows = renderer.fontMetrics.rows
+        self.player.visibleCols = renderer.fontMetrics.cols
         self.player.currentSessionFileName = sessionFileName
 
         let font = renderer.fontMetrics.font
@@ -52,6 +53,7 @@ class PaneController {
     func assignSession(events: [SessionEvent], fileName: String) {
         player = SessionPlayer(events: events)
         player.visibleRows = renderer.fontMetrics.rows
+        player.visibleCols = renderer.fontMetrics.cols
         player.currentSessionFileName = fileName
         previousLines = []
         previousAttributed = []

@@ -39,6 +39,7 @@ final class SessionPlayer {
     // MARK: - Public properties
 
     var visibleRows: Int = 50
+    var visibleCols: Int = 80
     var currentSessionFileName: String?
 
     private(set) var currentSpinnerFrame: Int = 0
@@ -126,16 +127,36 @@ final class SessionPlayer {
         .empty,
     ]
 
-    // Generate a fake Claude Code status line
+    // Fake project names for the status bar
+    private static let projectNames = [
+        "my-saas-app", "api-gateway", "neural-search", "billing-service",
+        "data-pipeline", "auth-service", "ml-inference", "web-dashboard",
+        "event-broker", "config-manager", "log-aggregator", "feature-flags",
+    ]
+
+    private static let branchNames = [
+        "main", "feat/add-auth", "fix/memory-leak", "refactor/db-schema",
+        "feat/websocket", "fix/timeout", "chore/deps", "feat/search",
+    ]
+
+    // Generate a status line matching real Claude Code format
     private static func generateStatusLine() -> [TerminalLine] {
         let model = modelNames.randomElement() ?? "claude-opus-4.6"
-        let tokens = Int.random(in: 12_000...847_000)
+        let project = projectNames.randomElement() ?? "project"
+        let branch = branchNames.randomElement() ?? "main"
         let contextPct = Int.random(in: 15...92)
-        let minutes = Int.random(in: 2...45)
-        let seconds = Int.random(in: 0...59)
+        let sessionMin = Int.random(in: 2...180)
+        let sessionSec = Int.random(in: 0...59)
+        let costCents = Int.random(in: 5...999)
+        let costStr = String(format: "$%d.%02d", costCents / 100, costCents % 100)
+
+        // Format like: [Opus 4.6 (1M context)] project | branch | ██░░ 44% | ⏱ 50m 26s | $0.47
+        let contextBar = String(repeating: "\u{2588}", count: contextPct / 10) + String(repeating: "\u{2591}", count: 10 - contextPct / 10)
+        let statusText = "[\(model)]  \(project) | \(branch) | \(contextBar) \(contextPct)% | \(sessionMin)m \(sessionSec)s | \(costStr)"
+
         return [
-            .statusInfo(text: "\(model)  \(tokens.formatted()) tokens  \(contextPct)% context  \(minutes)m \(seconds)s"),
-            .warning(text: "  bypass permissions on"),
+            .statusInfo(text: statusText),
+            .warning(text: "\u{25B6}\u{25B6} bypass permissions on (shift+tab to cycle)"),
             .empty,
         ]
     }
@@ -357,16 +378,39 @@ final class SessionPlayer {
         currentEventLineStart = allLines.count
     }
 
+    // Wraps a single line at visibleRows column width
+    private func wrapLine(_ line: String) -> [String] {
+        guard visibleRows > 0 else { return [line] }
+        let wrapWidth = max(visibleCols, 20)
+        guard line.count > wrapWidth else { return [line] }
+        var result: [String] = []
+        var remaining = line
+        while remaining.count > wrapWidth {
+            let breakIndex = remaining.index(remaining.startIndex, offsetBy: wrapWidth)
+            result.append(String(remaining[remaining.startIndex..<breakIndex]))
+            remaining = String(remaining[breakIndex...])
+        }
+        if !remaining.isEmpty { result.append(remaining) }
+        return result
+    }
+
     private func updateLinesForTyping(text: String) {
         let rawLines = text.components(separatedBy: "\n")
-        let typedLines: [TerminalLine] = rawLines.enumerated().map { index, line in
-            switch currentTypingMode {
-            case .prompt:
-                return index == 0 ? .prompt(text: line) : .response(text: line)
-            case .response:
-                return .response(text: line)
-            case .toolCall(let tool, let args):
-                return index == 0 ? .toolCallHeader(tool: tool, args: args) : .response(text: line)
+        // Wrap long lines at approximate column width
+        var typedLines: [TerminalLine] = []
+        for (index, rawLine) in rawLines.enumerated() {
+            let wrapped = wrapLine(rawLine)
+            for (wrapIdx, segment) in wrapped.enumerated() {
+                let line: TerminalLine
+                switch currentTypingMode {
+                case .prompt:
+                    line = (index == 0 && wrapIdx == 0) ? .prompt(text: segment) : .response(text: segment)
+                case .response:
+                    line = .response(text: segment)
+                case .toolCall(let tool, let args):
+                    line = (index == 0 && wrapIdx == 0) ? .toolCallHeader(tool: tool, args: args) : .response(text: segment)
+                }
+                typedLines.append(line)
             }
         }
 
