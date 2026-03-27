@@ -38,12 +38,9 @@ final class SessionPlayerTests: XCTestCase {
         let lines = player.visibleLines
         XCTAssertFalse(lines.isEmpty)
 
-        // First line should be a prompt type
-        if case .prompt = lines[0] {
-            // expected
-        } else {
-            XCTFail("Expected .prompt line, got \(lines[0])")
-        }
+        // Should contain a prompt line (after the banner)
+        let hasPrompt = lines.contains { if case .prompt = $0 { return true }; return false }
+        XCTAssertTrue(hasPrompt, "Should contain a .prompt line")
 
         // After enough time, full prompt should be visible
         player.advance(deltaTime: 0.3)

@@ -143,7 +143,10 @@ final class SessionPlayer {
     init(events: [SessionEvent]) {
         self.events = events
         // Start with ASCII banner + status line
-        self.allLines = Self.asciiBanner + Self.generateStatusLine()
+        let bannerAndStatus = Self.asciiBanner + Self.generateStatusLine()
+        self.allLines = bannerAndStatus
+        // New content starts after the banner, not at line 0
+        self.currentEventLineStart = bannerAndStatus.count
         if events.isEmpty {
             state = .finished
         }
