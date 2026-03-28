@@ -2,6 +2,10 @@
 
 A native macOS screensaver that displays a grid of simulated Code Agent terminal instances in a tmux-style layout, all appearing to actively work on coding tasks.
 
+
+https://github.com/user-attachments/assets/c18b2ebc-bd0b-47ab-a8b5-4bb3587662ad
+
+
 ## What It Looks Like
 
 A full-screen tmux session with 5-8 panes, each showing a Code Agent instance reading files, writing code, running tests, and thinking through problems. Text-character borders with proper junction characters. A status bar at the bottom with session name and timestamp. Panes slowly split, close, and resize over time.
