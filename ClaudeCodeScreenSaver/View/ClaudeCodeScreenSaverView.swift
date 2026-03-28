@@ -340,8 +340,25 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
     private func loadSessions() {
         loadedSessions = []
+        // Try multiple bundle resolution strategies
         let bundle = Bundle(for: type(of: self))
-        guard let urls = bundle.urls(forResourcesWithExtension: "jsonl", subdirectory: nil) else { return }
+        var urls = bundle.urls(forResourcesWithExtension: "jsonl", subdirectory: nil)
+        // Fallback: try the bundle by identifier
+        if urls == nil || urls!.isEmpty {
+            if let idBundle = Bundle(identifier: Self.bundleID) {
+                urls = idBundle.urls(forResourcesWithExtension: "jsonl", subdirectory: nil)
+            }
+        }
+        // Fallback: try the bundle path directly
+        if urls == nil || urls!.isEmpty {
+            if let resourcePath = bundle.resourcePath {
+                let resourceURL = URL(fileURLWithPath: resourcePath)
+                if let contents = try? FileManager.default.contentsOfDirectory(at: resourceURL, includingPropertiesForKeys: nil) {
+                    urls = contents.filter { $0.pathExtension == "jsonl" }
+                }
+            }
+        }
+        guard let urls = urls, !urls.isEmpty else { return }
         for url in urls {
             let events = SessionParser.parseFile(at: url)
             guard !events.isEmpty else { continue }
