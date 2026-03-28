@@ -8,8 +8,14 @@ final class TerminalRendererTests: XCTestCase {
 
     func testCreatesCorrectNumberOfLineLayers() {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
-        XCTAssertEqual(renderer.lineLayers.count, renderer.fontMetrics.rows)
+        XCTAssertEqual(renderer.lineLayers.count, renderer.contentRows)
         XCTAssertGreaterThan(renderer.lineLayers.count, 0)
+    }
+
+    func testContentRowsLessThanTotalRows() {
+        let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
+        // Footer takes 2 lines
+        XCTAssertEqual(renderer.contentRows, renderer.fontMetrics.rows - 2)
     }
 
     func testLineLayersHaveCorrectHeight() {
@@ -38,9 +44,8 @@ final class TerminalRendererTests: XCTestCase {
         let lines = [builder.responseLine(text: "line 0"), builder.responseLine(text: "line 1"), builder.responseLine(text: "line 2")]
         renderer.update(lines: lines, cursorPosition: (row: 2, col: 5), deltaTime: 0.0)
 
-        // Bottom-aligned: 3 lines in N-row pane, content starts at layer row (N-3)
-        // Cursor at content row 2 -> layer row (N-3)+2 = N-1 (bottom row)
-        let offset = renderer.fontMetrics.rows - 3
+        // Bottom-aligned within content area: 3 lines in contentRows-row area
+        let offset = renderer.contentRows - 3
         let layerRow = offset + 2
         let yFromTop = CGFloat(layerRow) * renderer.fontMetrics.lineHeight
         let expectedY = 300.0 - yFromTop - renderer.fontMetrics.lineHeight
@@ -53,15 +58,12 @@ final class TerminalRendererTests: XCTestCase {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
         let lines = [AttributedStringBuilder(theme: .dark, font: renderer.fontMetrics.font).responseLine(text: "test")]
 
-        // Initially visible
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.0)
         XCTAssertFalse(renderer.cursorLayer.isHidden)
 
-        // After 530ms, should toggle
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.530)
         XCTAssertTrue(renderer.cursorLayer.isHidden)
 
-        // After another 530ms, should toggle back
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.530)
         XCTAssertFalse(renderer.cursorLayer.isHidden)
     }
@@ -71,11 +73,9 @@ final class TerminalRendererTests: XCTestCase {
         let builder = AttributedStringBuilder(theme: .dark, font: renderer.fontMetrics.font)
         let lines = [builder.responseLine(text: "unchanged")]
 
-        // First update sets the line
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.0)
         let firstString = renderer.lineLayers[0].string as? NSAttributedString
 
-        // Second update with same content — layer string should be the same object reference or equal
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.01)
         let secondString = renderer.lineLayers[0].string as? NSAttributedString
         XCTAssertEqual(firstString?.string, secondString?.string)
@@ -97,7 +97,6 @@ final class TerminalRendererTests: XCTestCase {
 
     func testLineLayersPositionedTopDown() {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
-        // Row 0 should be at top (highest Y in CA coords), row N at bottom (lowest Y)
         for (index, layer) in renderer.lineLayers.enumerated() {
             let yFromTop = CGFloat(index) * renderer.fontMetrics.lineHeight
             let expectedY = 300.0 - yFromTop - renderer.fontMetrics.lineHeight
@@ -110,9 +109,8 @@ final class TerminalRendererTests: XCTestCase {
     func testViewportShowsBottomLines() {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
         let builder = AttributedStringBuilder(theme: .dark, font: renderer.fontMetrics.font)
-        let rowCount = renderer.fontMetrics.rows
+        let rowCount = renderer.contentRows
 
-        // Create more lines than can fit in the viewport
         var lines: [NSAttributedString] = []
         for i in 0..<(rowCount + 5) {
             lines.append(builder.responseLine(text: "line \(i)"))
@@ -120,11 +118,10 @@ final class TerminalRendererTests: XCTestCase {
 
         renderer.update(lines: lines, cursorPosition: (row: 0, col: 0), deltaTime: 0.0)
 
-        // The first visible line should be line 5 (bottom N lines of rowCount+5 total)
+        // First visible line should be line 5 (bottom contentRows of contentRows+5 total)
         let firstVisibleString = (renderer.lineLayers[0].string as? NSAttributedString)?.string
         XCTAssertEqual(firstVisibleString, "line 5")
 
-        // The last visible line should be the last line
         let lastVisibleString = (renderer.lineLayers[rowCount - 1].string as? NSAttributedString)?.string
         XCTAssertEqual(lastVisibleString, "line \(rowCount + 4)")
     }
@@ -139,7 +136,6 @@ final class TerminalRendererTests: XCTestCase {
 
     func testEmptyLinesUpdate() {
         let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
-        // Update with no lines — all layers should be nil/empty
         renderer.update(lines: [], cursorPosition: (row: 0, col: 0), deltaTime: 0.0)
         for layer in renderer.lineLayers {
             let str = layer.string as? NSAttributedString
@@ -152,12 +148,26 @@ final class TerminalRendererTests: XCTestCase {
         let builder = AttributedStringBuilder(theme: .dark, font: renderer.fontMetrics.font)
         let lines = [builder.responseLine(text: "test")]
 
-        // Pass a cursor row way beyond visible area
         renderer.update(lines: lines, cursorPosition: (row: 9999, col: 0), deltaTime: 0.0)
 
-        let maxRow = renderer.fontMetrics.rows - 1
-        let yFromTop = CGFloat(maxRow) * renderer.fontMetrics.lineHeight
+        // Cursor should be clamped to the last visible content line (bottom-aligned)
+        // With 1 line of content, cursor row 0 maps to the bottom of the content area
+        let offset = renderer.contentRows - 1
+        let layerRow = offset
+        let yFromTop = CGFloat(layerRow) * renderer.fontMetrics.lineHeight
         let expectedY = renderer.containerLayer.frame.height - yFromTop - renderer.fontMetrics.lineHeight
         XCTAssertEqual(renderer.cursorLayer.frame.origin.y, expectedY, accuracy: 1.0)
+    }
+
+    func testFooterLayerExists() {
+        let renderer = TerminalRenderer(frame: CGRect(x: 0, y: 0, width: 500, height: 300), theme: .dark)
+        let builder = AttributedStringBuilder(theme: .dark, font: renderer.fontMetrics.font)
+        renderer.setFooter(
+            statusText: builder.statusInfoLine(text: "[test-model] project | main"),
+            warningText: builder.warningLine(text: "bypass permissions on")
+        )
+        // Container should have: content layers + 2 footer layers + cursor = contentRows + 3
+        let expectedSublayers = renderer.contentRows + 3
+        XCTAssertEqual(renderer.containerLayer.sublayers?.count, expectedSublayers)
     }
 }

@@ -23,12 +23,19 @@ class PaneController {
         self.sessionFileName = sessionFileName
         self.renderer = TerminalRenderer(frame: layout.frame, theme: theme, scale: scale)
         self.player = SessionPlayer(events: events)
-        self.player.visibleRows = renderer.fontMetrics.rows
+        self.player.visibleRows = renderer.contentRows // content area only, excludes footer
         self.player.visibleCols = renderer.fontMetrics.cols
         self.player.currentSessionFileName = sessionFileName
 
         let font = renderer.fontMetrics.font
         self.stringBuilder = AttributedStringBuilder(theme: theme, font: font)
+
+        // Set the fixed footer for this pane
+        let footer = SessionPlayer.generateFooterText()
+        renderer.setFooter(
+            statusText: stringBuilder.statusInfoLine(text: footer.statusLine),
+            warningText: stringBuilder.warningLine(text: footer.warningLine)
+        )
     }
 
     func advance(deltaTime: TimeInterval) {
@@ -52,7 +59,7 @@ class PaneController {
 
     func assignSession(events: [SessionEvent], fileName: String) {
         player = SessionPlayer(events: events)
-        player.visibleRows = renderer.fontMetrics.rows
+        player.visibleRows = renderer.contentRows
         player.visibleCols = renderer.fontMetrics.cols
         player.currentSessionFileName = fileName
         previousLines = []

@@ -140,8 +140,8 @@ final class SessionPlayer {
         "feat/websocket", "fix/timeout", "chore/deps", "feat/search",
     ]
 
-    // Generate a status line matching real Code Agent format
-    private static func generateStatusLine() -> [TerminalLine] {
+    // Generate a footer status line for a pane (called externally by PaneController)
+    static func generateFooterText() -> (statusLine: String, warningLine: String) {
         let model = modelNames.randomElement() ?? "claude-opus-4.6"
         let project = projectNames.randomElement() ?? "project"
         let branch = branchNames.randomElement() ?? "main"
@@ -151,24 +151,19 @@ final class SessionPlayer {
         let costCents = Int.random(in: 5...999)
         let costStr = String(format: "$%d.%02d", costCents / 100, costCents % 100)
 
-        // Format like: [Opus 4.6 (1M context)] project | branch | ██░░ 44% | ⏱ 50m 26s | $0.47
         let contextBar = String(repeating: "\u{2588}", count: contextPct / 10) + String(repeating: "\u{2591}", count: 10 - contextPct / 10)
         let statusText = "[\(model)]  \(project) | \(branch) | \(contextBar) \(contextPct)% | \(sessionMin)m \(sessionSec)s | \(costStr)"
+        let warningText = "\u{25B6}\u{25B6} bypass permissions on (shift+tab to cycle)"
 
-        return [
-            .statusInfo(text: statusText),
-            .warning(text: "\u{25B6}\u{25B6} bypass permissions on (shift+tab to cycle)"),
-            .empty,
-        ]
+        return (statusLine: statusText, warningLine: warningText)
     }
 
     init(events: [SessionEvent]) {
         self.events = events
-        // Start with ASCII banner + status line
-        let bannerAndStatus = Self.asciiBanner + Self.generateStatusLine()
-        self.allLines = bannerAndStatus
+        // Start with ASCII banner only (footer is rendered separately by PaneController)
+        self.allLines = Self.asciiBanner
         // New content starts after the banner, not at line 0
-        self.currentEventLineStart = bannerAndStatus.count
+        self.currentEventLineStart = Self.asciiBanner.count
         if events.isEmpty {
             state = .finished
         }

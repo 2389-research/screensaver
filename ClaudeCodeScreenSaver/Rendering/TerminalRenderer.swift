@@ -1,5 +1,5 @@
 // ABOUTME: Renders terminal content as a grid of per-line CATextLayer instances.
-// ABOUTME: Manages cursor overlay, dirty-line tracking, and viewport bottom-tracking.
+// ABOUTME: Manages cursor overlay, dirty-line tracking, viewport bottom-tracking, and a fixed footer.
 
 import AppKit
 import QuartzCore
@@ -11,6 +11,14 @@ class TerminalRenderer {
     let cursorLayer: CALayer
     let fontMetrics: FontMetrics
     private let theme: ThemeColors
+
+    // Fixed footer layers (status line + warning) — always at the bottom, never scroll
+    private let footerStatusLayer: CATextLayer
+    private let footerWarningLayer: CATextLayer
+    private static let footerLineCount = 2
+
+    // Number of rows available for scrolling content (total rows minus footer)
+    var contentRows: Int { fontMetrics.rows - Self.footerLineCount }
 
     private var previousLines: [String] = []
     private var previousLineMapping: [String] = []
@@ -25,8 +33,10 @@ class TerminalRenderer {
         containerLayer.frame = frame
         containerLayer.backgroundColor = NSColor(hex: theme.background).cgColor
 
-        // Create per-line text layers (row 0 at top, growing downward like a terminal)
-        for row in 0..<fontMetrics.rows {
+        let contentRowCount = fontMetrics.rows - Self.footerLineCount
+
+        // Create per-line text layers for scrolling content (row 0 at top)
+        for row in 0..<contentRowCount {
             let lineLayer = CATextLayer()
             let yFromTop = CGFloat(row) * fontMetrics.lineHeight
             let yFlipped = frame.height - yFromTop - fontMetrics.lineHeight
@@ -41,11 +51,38 @@ class TerminalRenderer {
             lineLayer.fontSize = fontMetrics.fontSize
             lineLayer.isWrapped = false
             lineLayer.truncationMode = .end
-            // Suppress implicit animations
             lineLayer.actions = ["contents": NSNull(), "string": NSNull()]
             containerLayer.addSublayer(lineLayer)
             lineLayers.append(lineLayer)
         }
+
+        // Create fixed footer layers at the very bottom of the pane
+        // Footer line 1: status info (dim text)
+        footerStatusLayer = CATextLayer()
+        let statusY = frame.height - CGFloat(contentRowCount) * fontMetrics.lineHeight - fontMetrics.lineHeight
+        footerStatusLayer.frame = CGRect(x: 0, y: statusY, width: frame.width, height: fontMetrics.lineHeight)
+        footerStatusLayer.contentsScale = scale
+        footerStatusLayer.font = fontMetrics.font
+        footerStatusLayer.fontSize = fontMetrics.fontSize
+        footerStatusLayer.isWrapped = false
+        footerStatusLayer.truncationMode = .end
+        footerStatusLayer.actions = ["contents": NSNull(), "string": NSNull()]
+        // Subtle separator — slightly different background
+        footerStatusLayer.backgroundColor = NSColor(hex: theme.statusBarBackground).withAlphaComponent(0.3).cgColor
+        containerLayer.addSublayer(footerStatusLayer)
+
+        // Footer line 2: warning (red text)
+        footerWarningLayer = CATextLayer()
+        let warningY = statusY - fontMetrics.lineHeight
+        footerWarningLayer.frame = CGRect(x: 0, y: warningY, width: frame.width, height: fontMetrics.lineHeight)
+        footerWarningLayer.contentsScale = scale
+        footerWarningLayer.font = fontMetrics.font
+        footerWarningLayer.fontSize = fontMetrics.fontSize
+        footerWarningLayer.isWrapped = false
+        footerWarningLayer.truncationMode = .end
+        footerWarningLayer.actions = ["contents": NSNull(), "string": NSNull()]
+        footerWarningLayer.backgroundColor = NSColor(hex: theme.statusBarBackground).withAlphaComponent(0.3).cgColor
+        containerLayer.addSublayer(footerWarningLayer)
 
         // Create cursor overlay
         cursorLayer = CALayer()
@@ -55,14 +92,23 @@ class TerminalRenderer {
         containerLayer.addSublayer(cursorLayer)
     }
 
+    /// Set the fixed footer content (called once per pane, not every frame)
+    func setFooter(statusText: NSAttributedString, warningText: NSAttributedString) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        footerStatusLayer.string = statusText
+        footerWarningLayer.string = warningText
+        CATransaction.commit()
+    }
+
     func update(lines: [NSAttributedString], cursorPosition: (row: Int, col: Int), deltaTime: TimeInterval) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
-        // Bottom-align content: when fewer lines than rows, empty space at top, content at bottom.
-        // When content fills or exceeds the viewport, show the most recent (bottom) lines.
-        let visibleLines = Array(lines.suffix(fontMetrics.rows))
-        let offset = fontMetrics.rows - visibleLines.count // empty rows at top
+        let rowCount = contentRows
+        // Bottom-align content within the content area (above footer)
+        let visibleLines = Array(lines.suffix(rowCount))
+        let offset = rowCount - visibleLines.count
 
         for (index, lineLayer) in lineLayers.enumerated() {
             let contentIndex = index - offset
@@ -77,8 +123,8 @@ class TerminalRenderer {
                 }
             }
         }
-        // Track what each layer is showing for dirty detection
-        previousLineMapping = (0..<fontMetrics.rows).map { index in
+
+        previousLineMapping = (0..<rowCount).map { index in
             let contentIndex = index - offset
             if contentIndex >= 0 && contentIndex < visibleLines.count {
                 return visibleLines[contentIndex].string
@@ -87,10 +133,10 @@ class TerminalRenderer {
         }
         previousLines = visibleLines.map { $0.string }
 
-        // Update cursor position (bottom-aligned, flipped coords)
+        // Update cursor position (bottom-aligned within content area, flipped coords)
         let visibleCount = visibleLines.count
-        let cursorRowInContent = min(cursorPosition.row, visibleCount - 1)
-        let cursorLayerRow = cursorRowInContent + offset // map to layer index
+        let cursorRowInContent = min(cursorPosition.row, max(visibleCount - 1, 0))
+        let cursorLayerRow = cursorRowInContent + offset
         let cursorX = CGFloat(cursorPosition.col) * fontMetrics.charAdvance
         let cursorYFromTop = CGFloat(cursorLayerRow) * fontMetrics.lineHeight
         let cursorY = containerLayer.frame.height - cursorYFromTop - fontMetrics.lineHeight
