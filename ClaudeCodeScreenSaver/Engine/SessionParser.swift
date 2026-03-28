@@ -35,7 +35,8 @@ enum SessionParser {
     }
 
     static func parseFile(at url: URL) -> [SessionEvent] {
-        guard let data = try? String(contentsOf: url, encoding: .utf8) else { return [] }
+        guard let rawData = try? Data(contentsOf: url),
+              let data = String(data: rawData, encoding: .utf8) else { return [] }
         return data.components(separatedBy: .newlines)
             .flatMap { line in
                 let trimmed = line.trimmingCharacters(in: .whitespaces)

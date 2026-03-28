@@ -338,32 +338,25 @@ public class ClaudeCodeScreenSaverView: ScreenSaverView {
 
     // MARK: - Session Loading
 
+    // Known bundled session filenames — resolved via Bundle.url(forResource:) for sandbox compatibility
+    private static let bundledSessionNames = [
+        "add-auth", "build-rest-api", "code-review", "debug-memory-leak",
+        "docker-setup", "everything-goes-wrong", "fix-css-layout", "fix-react-bug",
+        "git-workflow", "graphql-api", "kubernetes-deploy", "migrate-typescript",
+        "optimize-sql", "performance-audit", "refactor-database", "rust-cli-tool",
+        "search-feature", "setup-cicd", "websocket-server", "write-docs",
+        "write-python-tests",
+    ]
+
     private func loadSessions() {
         loadedSessions = []
-        // Try multiple bundle resolution strategies
         let bundle = Bundle(for: type(of: self))
-        var urls = bundle.urls(forResourcesWithExtension: "jsonl", subdirectory: nil)
-        // Fallback: try the bundle by identifier
-        if urls == nil || urls!.isEmpty {
-            if let idBundle = Bundle(identifier: Self.bundleID) {
-                urls = idBundle.urls(forResourcesWithExtension: "jsonl", subdirectory: nil)
-            }
-        }
-        // Fallback: try the bundle path directly
-        if urls == nil || urls!.isEmpty {
-            if let resourcePath = bundle.resourcePath {
-                let resourceURL = URL(fileURLWithPath: resourcePath)
-                if let contents = try? FileManager.default.contentsOfDirectory(at: resourceURL, includingPropertiesForKeys: nil) {
-                    urls = contents.filter { $0.pathExtension == "jsonl" }
-                }
-            }
-        }
-        guard let urls = urls, !urls.isEmpty else { return }
-        for url in urls {
+
+        for name in Self.bundledSessionNames {
+            guard let url = bundle.url(forResource: name, withExtension: "jsonl") else { continue }
             let events = SessionParser.parseFile(at: url)
             guard !events.isEmpty else { continue }
-            let fileName = url.lastPathComponent
-            loadedSessions.append((events: events, fileName: fileName))
+            loadedSessions.append((events: events, fileName: "\(name).jsonl"))
         }
     }
 
