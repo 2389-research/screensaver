@@ -141,6 +141,8 @@ final class TerminalRendererTests: XCTestCase {
             let str = layer.string as? NSAttributedString
             XCTAssertNil(str)
         }
+        // Cursor should be hidden when no content, to avoid overlapping the footer
+        XCTAssertTrue(renderer.cursorLayer.isHidden, "Cursor should be hidden when no content")
     }
 
     func testCursorRowClampedToMaxRows() {

@@ -135,19 +135,26 @@ class TerminalRenderer {
 
         // Update cursor position (bottom-aligned within content area, flipped coords)
         let visibleCount = visibleLines.count
-        let cursorRowInContent = min(cursorPosition.row, max(visibleCount - 1, 0))
-        let cursorLayerRow = cursorRowInContent + offset
-        let cursorX = CGFloat(cursorPosition.col) * fontMetrics.charAdvance
-        let cursorYFromTop = CGFloat(cursorLayerRow) * fontMetrics.lineHeight
-        let cursorY = containerLayer.frame.height - cursorYFromTop - fontMetrics.lineHeight
-        cursorLayer.frame = CGRect(x: cursorX, y: cursorY, width: fontMetrics.charAdvance, height: fontMetrics.lineHeight)
+        if visibleCount == 0 {
+            // No content — hide cursor so it doesn't overlap the footer
+            cursorLayer.isHidden = true
+        } else {
+            let cursorRowInContent = min(cursorPosition.row, visibleCount - 1)
+            let cursorLayerRow = cursorRowInContent + offset
+            // Clamp cursor column to prevent it from extending past the pane edge
+            let clampedCol = min(cursorPosition.col, fontMetrics.cols - 1)
+            let cursorX = CGFloat(clampedCol) * fontMetrics.charAdvance
+            let cursorYFromTop = CGFloat(cursorLayerRow) * fontMetrics.lineHeight
+            let cursorY = containerLayer.frame.height - cursorYFromTop - fontMetrics.lineHeight
+            cursorLayer.frame = CGRect(x: cursorX, y: cursorY, width: fontMetrics.charAdvance, height: fontMetrics.lineHeight)
 
-        // Cursor blink
-        cursorBlinkAccumulator += deltaTime
-        if cursorBlinkAccumulator >= cursorBlinkHalfPeriod {
-            cursorBlinkAccumulator -= cursorBlinkHalfPeriod
-            cursorVisible.toggle()
-            cursorLayer.isHidden = !cursorVisible
+            // Cursor blink
+            cursorBlinkAccumulator += deltaTime
+            if cursorBlinkAccumulator >= cursorBlinkHalfPeriod {
+                cursorBlinkAccumulator -= cursorBlinkHalfPeriod
+                cursorVisible.toggle()
+                cursorLayer.isHidden = !cursorVisible
+            }
         }
 
         CATransaction.commit()
