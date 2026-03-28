@@ -50,6 +50,7 @@ final class SessionPlayer {
         let col: Int
         switch allLines.last {
         case .prompt(let text): col = text.count + 2
+        case .promptContinuation(let text): col = text.count
         case .response(let text): col = text.count
         case .toolCallHeader(let tool, let args): col = tool.count + args.count + 4
         case .toolResultContent(let text): col = text.count + 2
@@ -378,15 +379,22 @@ final class SessionPlayer {
         currentEventLineStart = allLines.count
     }
 
-    // Wraps a single line at visibleRows column width
-    private func wrapLine(_ line: String) -> [String] {
-        guard visibleRows > 0 else { return [line] }
-        let wrapWidth = max(visibleCols, 20)
-        guard line.count > wrapWidth else { return [line] }
+    private func wrapLine(_ line: String, firstLineWidth: Int? = nil, continuationWidth: Int? = nil) -> [String] {
+        guard visibleCols > 0 else { return [line] }
+
+        let initialWidth = max(firstLineWidth ?? visibleCols, 1)
+        let wrappedLineWidth = max(continuationWidth ?? visibleCols, 1)
+        guard line.count > initialWidth else { return [line] }
+
         var result: [String] = []
         var remaining = line
-        while remaining.count > wrapWidth {
-            let breakIndex = remaining.index(remaining.startIndex, offsetBy: wrapWidth)
+
+        let firstBreakIndex = remaining.index(remaining.startIndex, offsetBy: initialWidth)
+        result.append(String(remaining[remaining.startIndex..<firstBreakIndex]))
+        remaining = String(remaining[firstBreakIndex...])
+
+        while remaining.count > wrappedLineWidth {
+            let breakIndex = remaining.index(remaining.startIndex, offsetBy: wrappedLineWidth)
             result.append(String(remaining[remaining.startIndex..<breakIndex]))
             remaining = String(remaining[breakIndex...])
         }
@@ -399,12 +407,19 @@ final class SessionPlayer {
         // Wrap long lines at approximate column width
         var typedLines: [TerminalLine] = []
         for (index, rawLine) in rawLines.enumerated() {
-            let wrapped = wrapLine(rawLine)
+            let wrapped: [String]
+            switch currentTypingMode {
+            case .prompt:
+                let firstWidth = index == 0 ? visibleCols - 2 : visibleCols
+                wrapped = wrapLine(rawLine, firstLineWidth: firstWidth)
+            default:
+                wrapped = wrapLine(rawLine)
+            }
             for (wrapIdx, segment) in wrapped.enumerated() {
                 let line: TerminalLine
                 switch currentTypingMode {
                 case .prompt:
-                    line = (index == 0 && wrapIdx == 0) ? .prompt(text: segment) : .response(text: segment)
+                    line = (index == 0 && wrapIdx == 0) ? .prompt(text: segment) : .promptContinuation(text: segment)
                 case .response:
                     line = .response(text: segment)
                 case .toolCall(let tool, let args):

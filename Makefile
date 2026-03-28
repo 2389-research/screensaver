@@ -10,7 +10,7 @@ INSTALL_DIR = $(HOME)/Library/Screen Savers
 GIT_HASH = $(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 BUILD_DATE = $(shell date '+%Y-%m-%d %H:%M')
 
-.PHONY: build test install uninstall release clean hup stamp
+.PHONY: build test install uninstall release clean hup stamp dev reinstall-hard
 
 # Stamp git hash and build date into Info.plist before build
 stamp:
@@ -44,6 +44,10 @@ hup:
 # Build + install + reload in one command
 dev: install hup
 	@echo "Dev build $(GIT_HASH) installed and reloaded."
+
+# Remove installed saver, reinstall from a fresh build, then reload the host
+reinstall-hard: uninstall install hup
+	@echo "Hard reinstall complete."
 
 release: build
 	@mkdir -p build

@@ -5,6 +5,7 @@ import Foundation
 
 enum TerminalLine: Equatable {
     case prompt(text: String)
+    case promptContinuation(text: String)
     case response(text: String)
     case toolCallHeader(tool: String, args: String)
     case toolResultContent(text: String)

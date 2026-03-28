@@ -44,6 +44,11 @@ struct AttributedStringBuilder {
         return result
     }
 
+    func promptContinuationLine(text: String) -> NSAttributedString {
+        NSAttributedString(string: text,
+            attributes: [.font: boldFont, .foregroundColor: colorUserInput])
+    }
+
     func responseLine(text: String) -> NSAttributedString {
         NSAttributedString(string: text,
             attributes: [.font: nsFont, .foregroundColor: colorResponseText])

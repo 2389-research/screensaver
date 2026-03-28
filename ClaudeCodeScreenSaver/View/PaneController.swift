@@ -65,6 +65,8 @@ class PaneController {
         switch line {
         case .prompt(let text):
             return stringBuilder.promptLine(text: text)
+        case .promptContinuation(let text):
+            return stringBuilder.promptContinuationLine(text: text)
         case .response(let text):
             return stringBuilder.responseLine(text: text)
         case .toolCallHeader(let tool, let args):

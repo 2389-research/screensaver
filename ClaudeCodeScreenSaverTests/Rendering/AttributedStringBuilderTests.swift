@@ -28,6 +28,19 @@ final class AttributedStringBuilderTests: XCTestCase {
                      "User input should be bold")
     }
 
+    func testPromptContinuationUsesPromptStylingWithoutChevron() {
+        let result = builder.promptContinuationLine(text: "continued")
+        XCTAssertEqual(result.string, "continued")
+
+        let attrs = result.attributes(at: 0, effectiveRange: nil)
+        let attrFont = attrs[.font] as! NSFont
+        let color = attrs[.foregroundColor] as! NSColor
+
+        XCTAssertTrue(attrFont.fontDescriptor.symbolicTraits.contains(.bold),
+                     "Wrapped prompt continuation should stay bold")
+        XCTAssertEqual(color, NSColor(hex: darkTheme.userInput))
+    }
+
     func testResponseLineColor() {
         let result = builder.responseLine(text: "I'll fix that.")
         let attrs = result.attributes(at: 0, effectiveRange: nil)

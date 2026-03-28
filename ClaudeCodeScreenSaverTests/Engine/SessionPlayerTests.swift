@@ -11,6 +11,7 @@ final class SessionPlayerTests: XCTestCase {
     private func textContent(of line: TerminalLine) -> String {
         switch line {
         case .prompt(let text): return text
+        case .promptContinuation(let text): return text
         case .response(let text): return text
         case .toolCallHeader(let tool, let args): return "\(tool) \(args)"
         case .toolResultContent(let text): return text
@@ -235,5 +236,41 @@ final class SessionPlayerTests: XCTestCase {
         if case .prompt(let text) = promptLines.first {
             XCTAssertEqual(text, "hello")
         }
+    }
+
+    func testPromptWrapsAtPaneColumnWidthIncludingChevron() {
+        let player = SessionPlayer(events: [.userPrompt(text: "abcdefghijk")])
+        player.visibleCols = 10
+
+        player.advance(deltaTime: 0.0)
+        player.advance(deltaTime: 1.0)
+
+        let promptLines = player.visibleLines.filter {
+            switch $0 {
+            case .prompt, .promptContinuation:
+                return true
+            default:
+                return false
+            }
+        }
+
+        XCTAssertEqual(promptLines.count, 2)
+
+        guard promptLines.count == 2 else { return }
+
+        if case .prompt(let firstLine) = promptLines[0] {
+            XCTAssertEqual(firstLine, "abcdefgh")
+        } else {
+            XCTFail("Expected first wrapped segment to be a prompt line")
+        }
+
+        if case .promptContinuation(let secondLine) = promptLines[1] {
+            XCTAssertEqual(secondLine, "ijk")
+        } else {
+            XCTFail("Expected wrapped continuation to preserve prompt styling")
+        }
+
+        XCTAssertEqual(player.cursorPosition.row, player.visibleLines.count - 1)
+        XCTAssertEqual(player.cursorPosition.col, 3)
     }
 }
